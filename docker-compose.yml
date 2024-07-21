@@ -1,0 +1,6 @@
+﻿services:
+  blog.webapi:
+    image: blog.webapi
+    build:
+      context: .
+      dockerfile: src/Blog.WebAPI/Dockerfile
