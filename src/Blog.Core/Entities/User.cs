@@ -1,12 +1,18 @@
-﻿namespace Blog.Core.Entities;
+﻿using Blog.Core.Enum;
 
-public class User : BaseEntity
+namespace Blog.Core.Entities;
+
+public sealed class User : BaseEntity
 {
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
-    public string Email { get; set; }
-    public string Age { get; set; }
-    public string PhoneNumber { get; set; }
+    public required string FullName { get; set; }
+    public DateTime? BirthDate { get; set; }
+    public required Gender Gender { get; set; }
+    public required string Email { get; set; }
     public string Password { get; set; }
-    public ICollection<Post> Posts { get; set; }
+    public string? PhoneNumber { get; set; }
+    public IList<Post> Posts { get; set; }
+    public IList<Post> FavoritePosts { get; set; }
+    public IList<Community> Subscriptions { get; set; }
+    public IList<Community> AdministeredCommunities { get; set; }
+    public IList<FileCv> FileCvs { get; set; }
 }
