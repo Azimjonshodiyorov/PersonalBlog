@@ -9,6 +9,6 @@ namespace Blog.Infrastructure.Repositories.Interfaces
 {
     public interface IUserRepository : IRepository<User>
     {
-        Task<User?> GetByIdIncludingCommunities(Guid id);
+        
     }
 }
