@@ -7,6 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="13.0.1" />
+      <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
       <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
       <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0" />
       <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.0" />
@@ -17,10 +19,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="DTOs\Certificate\" />
-      <Folder Include="DTOs\File\" />
-      <Folder Include="DTOs\PetProject\" />
-      <Folder Include="DTOs\Post\" />
       <Folder Include="Services\CertificateServices\" />
       <Folder Include="Services\FileServices\" />
       <Folder Include="Services\PetProjectServices\" />
