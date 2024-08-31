@@ -13,7 +13,6 @@ public static class DependencyInjection
     public static void AddInfrastructure(this IServiceCollection services , IConfiguration configuration)
     {
         services.AddBlogDbContext(configuration);
-        services.AddAddressDbContext(configuration);
         services.AddRepositories();
     }
 
@@ -23,20 +22,8 @@ public static class DependencyInjection
         services.AddDbContext<BlogDbContext>(option=>option.UseNpgsql(connectionString));
     }
 
-    private static void AddAddressDbContext(this IServiceCollection services , IConfiguration configuration)
-    {
-        var connectionString = configuration.GetConnectionString("GerConnection");
-        services.AddDbContext<AddressDbContext>(option => option.UseNpgsql( connectionString));
-    }
-
     private static void AddRepositories(this IServiceCollection services)
     { 
-        services.AddScoped(typeof(IRepository<>) , typeof(IRepository<>) );
-        services.AddScoped<IUserRepository , UserRepository>();
-        services.AddScoped<IPostRepository , PostRepository>();
-        services.AddScoped<ITagRepository , TagRepository>();
-        services.AddScoped<ICommunityRepository, CommunityRepository>();
-        services.AddScoped<ICommentRepository , CommentRepository>();
-        services.AddScoped<IAddressRepository , AddressRepository>();
+
     }
 }
