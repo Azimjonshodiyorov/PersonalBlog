@@ -10,10 +10,8 @@ namespace Blog.Application.Services.TokenServices
     {
         public  string Key { get; set; }
         public  string RefreshKey { get; set; }
-
         public  string Issuer { get; set; }
         public  string Audience { get; set; }
-
         public  double LifetimeInMinutes { get; set; }
         public  double RefreshLifetimeInDays { get; set; }
     }
