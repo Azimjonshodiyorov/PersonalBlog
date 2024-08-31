@@ -16,4 +16,15 @@
       <ProjectReference Include="..\Blog.Infrastructure\Blog.Infrastructure.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="DTOs\Certificate\" />
+      <Folder Include="DTOs\File\" />
+      <Folder Include="DTOs\PetProject\" />
+      <Folder Include="DTOs\Post\" />
+      <Folder Include="Services\CertificateServices\" />
+      <Folder Include="Services\FileServices\" />
+      <Folder Include="Services\PetProjectServices\" />
+      <Folder Include="Services\PostServices\" />
+    </ItemGroup>
+
 </Project>

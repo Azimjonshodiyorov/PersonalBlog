@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Blog.Application.DTOs.Account
 {
-    public class LoginCredentials
+    public class LoginDto
     {
-        public required string Email { get; set; }
-        public required string Password { get; set; }
+        public  string Email { get; set; }
+        public  string Password { get; set; }
     }
 }

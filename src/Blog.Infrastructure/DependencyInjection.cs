@@ -23,7 +23,12 @@ public static class DependencyInjection
     }
 
     private static void AddRepositories(this IServiceCollection services)
-    { 
-
+    {
+        services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IPostRepository, PostRepository>();
+        services.AddScoped<IFileCvRepository, FileCvRepository>();
+        services.AddScoped<IPetProjectRepository, PetProjectRepository>();
+        services.AddScoped<ICertificateRepository, CertificateRepository>();
     }
 }

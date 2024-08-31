@@ -17,7 +17,7 @@ namespace Blog.Application.Services.AuthServices
             throw new NotImplementedException();
         }
 
-        public Task<TokenResponse> LogIn(LoginCredentials credentials)
+        public Task<TokenResponse> LogIn(LoginDto dto)
         {
             throw new NotImplementedException();
         }
