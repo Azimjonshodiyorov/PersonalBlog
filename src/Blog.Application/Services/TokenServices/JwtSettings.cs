@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Blog.Application.Services.TokenServices
 {
-    public sealed class JWTModel 
+    public sealed class JwtSettings 
     {
         public  string Key { get; set; }
         public  string RefreshKey { get; set; }

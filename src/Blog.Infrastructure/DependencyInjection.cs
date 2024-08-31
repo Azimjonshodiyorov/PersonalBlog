@@ -30,5 +30,6 @@ public static class DependencyInjection
         services.AddScoped<IFileCvRepository, FileCvRepository>();
         services.AddScoped<IPetProjectRepository, PetProjectRepository>();
         services.AddScoped<ICertificateRepository, CertificateRepository>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
     }
 }

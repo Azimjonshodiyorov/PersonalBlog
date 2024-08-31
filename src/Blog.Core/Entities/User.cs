@@ -15,4 +15,6 @@ public sealed class User : BaseEntity
     public IQueryable<FileCv> FileCvs { get; set; }
     public IQueryable<Certificate> Certificates { get; set; }
     public IQueryable<PetProject> PetProjects { get; set; }
+    
+    public List<RefreshToken> RefreshTokens { get; set; }
 }

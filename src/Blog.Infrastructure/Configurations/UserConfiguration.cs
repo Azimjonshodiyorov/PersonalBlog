@@ -20,6 +20,11 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .HasMany(x => x.FileCvs)
             .WithOne(x => x.User)
             .HasForeignKey(x => x.UserId);
-        
+
+        builder
+            .HasMany(x => x.RefreshTokens)
+            .WithOne(x => x.User)
+            .HasForeignKey(x => x.UserId);
+
     }
 }
