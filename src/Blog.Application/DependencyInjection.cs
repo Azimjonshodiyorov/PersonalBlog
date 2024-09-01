@@ -21,6 +21,8 @@ public static class DependencyInjection
 {
     public static void AddApplication(this IServiceCollection services, IConfiguration configuration)
     {
+        
+        services.Configure<JwtSettings>(configuration.GetSection("JWT"));
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<ICertificateService, CertificateService>();
