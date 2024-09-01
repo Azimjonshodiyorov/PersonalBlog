@@ -7,32 +7,41 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Blog.Infrastructure.Repositories.Interfaces;
 
 namespace Blog.Application.Services.AuthServices
 {
     public class AuthService : IAuthService
     {
-        public Task<bool> IsRevoked(string token)
+        private readonly IUserRepository _userRepository;
+        private readonly IRefreshTokenRepository _refreshTokenRepository;
+
+        public AuthService(IUserRepository userRepository , IRefreshTokenRepository refreshTokenRepository)
+        {
+            _userRepository = userRepository;
+            _refreshTokenRepository = refreshTokenRepository;
+        }
+        public async Task<bool> IsRevokedAsync(string token)
         {
             throw new NotImplementedException();
         }
 
-        public Task<TokenResponse> LogIn(LoginDto dto)
+        public async Task LogOutAsync(string token)
         {
             throw new NotImplementedException();
         }
 
-        public Task LogOut(string token)
+        public async Task<TokenResponse> LogInAsync(LoginDto dto)
         {
             throw new NotImplementedException();
         }
 
-        public Task<TokenResponse> Refresh(string refreshToken)
+        public async Task<TokenResponse> RegisterAsync(RegistrationDto user)
         {
             throw new NotImplementedException();
         }
 
-        public Task<TokenResponse> Register(User user, string password)
+        public async Task<TokenResponse> RefreshAsync(string refreshToken)
         {
             throw new NotImplementedException();
         }

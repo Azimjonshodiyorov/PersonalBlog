@@ -26,6 +26,7 @@ public class RefreshTokenRepository : Repository<RefreshToken> , IRefreshTokenRe
 
     public async Task RevokeTokenAsync(RefreshToken token)
     {
-        throw new NotImplementedException();
+        token.Revoked = DateTime.UtcNow;
+        _dbContext.RefreshTokens.Update(token);
     }
 }

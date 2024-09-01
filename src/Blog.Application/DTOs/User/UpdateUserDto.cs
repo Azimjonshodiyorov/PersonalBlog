@@ -1,8 +1,8 @@
 ﻿using Blog.Core.Enum;
 
-namespace Blog.Application.DTOs.Account;
+namespace Blog.Application.DTOs.User;
 
-public class UpdateDto
+public class UpdateUserDto
 {
     public  string FirstName { get; set; }
     public  string LastName { get; set; }

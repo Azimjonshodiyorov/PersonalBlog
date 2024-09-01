@@ -9,6 +9,6 @@ namespace Blog.Infrastructure.Repositories.Interfaces
 {
     public interface IPostRepository  : IRepository<Post>
     {
-        
+        Task<Post> SerchByTitleAsync(string title);
     }
 }

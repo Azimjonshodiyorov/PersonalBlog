@@ -6,10 +6,11 @@ namespace Blog.Application.Services.AuthServices.Interfaces
 {
     public interface IAuthService
     {
-        Task<bool> IsRevoked(string token);
-        Task LogOut(string token);
-        Task<TokenResponse> LogIn(LoginDto dto);
-        Task<TokenResponse> Register(User user, string password);
-        Task<TokenResponse> Refresh(string refreshToken);
+        Task<bool> IsRevokedAsync(string token);
+        Task LogOutAsync(string token);
+        Task<TokenResponse> LogInAsync(LoginDto dto);
+        Task<TokenResponse> RegisterAsync(RegistrationDto user);
+        Task<TokenResponse> RefreshAsync(string refreshToken);
+        
     }
 }
