@@ -7,4 +7,7 @@ public interface IRefreshTokenRepository : IRepository<RefreshToken>
     Task<RefreshToken?> GetTokenAsync(string token);
     Task AddTokenAsync(RefreshToken token);
     Task RevokeTokenAsync(RefreshToken token);
+    
+    Task<bool> IsRevokedAsync(string token);
+    
 }

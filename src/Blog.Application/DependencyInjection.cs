@@ -8,6 +8,10 @@ using Blog.Application.Services.PetProjectServices;
 using Blog.Application.Services.PetProjectServices.Interfaces;
 using Blog.Application.Services.PostServices;
 using Blog.Application.Services.PostServices.Interfaces;
+using Blog.Application.Services.TokenServices;
+using Blog.Application.Services.TokenServices.Interfaces;
+using Blog.Application.Services.UserServices;
+using Blog.Application.Services.UserServices.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -18,10 +22,12 @@ public static class DependencyInjection
     public static void AddApplication(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<IUserService, UserService>();
         services.AddScoped<ICertificateService, CertificateService>();
         services.AddScoped<IFileCvService,FileCvService>();
         services.AddScoped<IPetProjectService, PetProjectService>();
         services.AddScoped<IPostService, PostService>();
+        services.AddScoped<ITokenService, TokenService>();
     }
     
     

@@ -2,48 +2,90 @@
 using Blog.Application.DTOs.Tokens;
 using Blog.Application.Services.AuthServices.Interfaces;
 using Blog.Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using AutoMapper;
+using Blog.Application.Services.TokenServices.Interfaces;
 using Blog.Infrastructure.Repositories.Interfaces;
+using Microsoft.Extensions.Configuration;
 
 namespace Blog.Application.Services.AuthServices
 {
     public class AuthService : IAuthService
     {
-        private readonly IUserRepository _userRepository;
-        private readonly IRefreshTokenRepository _refreshTokenRepository;
+        private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly ITokenService _tokenService;
 
-        public AuthService(IUserRepository userRepository , IRefreshTokenRepository refreshTokenRepository)
+        public AuthService(IMapper mapper,
+            IUnitOfWork unitOfWork,
+            ITokenService tokenService)
         {
-            _userRepository = userRepository;
-            _refreshTokenRepository = refreshTokenRepository;
+            _mapper = mapper;
+            _unitOfWork = unitOfWork;
+            _tokenService = tokenService;
         }
         public async Task<bool> IsRevokedAsync(string token)
         {
-            throw new NotImplementedException();
+            return await _unitOfWork.RefreshTokens.IsRevokedAsync(token);
         }
 
         public async Task LogOutAsync(string token)
         {
-            throw new NotImplementedException();
+            var refreshToken = await _unitOfWork.RefreshTokens.GetTokenAsync(token);
+            if (refreshToken != null)
+            {
+                refreshToken.Revoked = DateTime.UtcNow;
+                await _unitOfWork.RefreshTokens.UpdateAsync(refreshToken);
+                await _unitOfWork.SaveChangesAsync(); 
+            }
         }
 
         public async Task<TokenResponse> LogInAsync(LoginDto dto)
         {
-            throw new NotImplementedException();
+            var user = await _unitOfWork.Users.GetByEmailAsync(dto.Email);
+            if (user == null)
+            {
+                throw new Exception("Invalid credentials.");
+            }
+
+            return await _tokenService.GenerateTokenAsync(user);
         }
 
         public async Task<TokenResponse> RegisterAsync(RegistrationDto user)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var existingUser = await this._unitOfWork.Users.GetByEmailAsync(user.Email);
+                if (existingUser != null)
+                {
+                    throw new Exception("User already exists.");
+                }
+        
+                var result = this._mapper.Map<User>(user);
+                await _unitOfWork.Users.AddAsync(result);
+                await this._unitOfWork.SaveChangesAsync();
+                return await this._tokenService.GenerateTokenAsync(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Registration failed.", ex);
+            }
         }
 
         public async Task<TokenResponse> RefreshAsync(string refreshToken)
         {
-            throw new NotImplementedException();
+            var refresh = await this._unitOfWork.RefreshTokens.GetTokenAsync(refreshToken);
+            if (refresh == null || await _unitOfWork.RefreshTokens.IsRevokedAsync(refreshToken) || !refresh.IsActive)
+            {
+                throw new Exception("Invalid or revoked refresh token.");
+            }
+
+            var user = await this._unitOfWork.Users.GetByIdAsync(refresh.UserId);
+            refresh.Revoked = DateTime.UtcNow;
+            await _unitOfWork.RefreshTokens.UpdateAsync(refresh);
+            await _unitOfWork.SaveChangesAsync();
+            if (user != null)
+                throw new Exception("user Null authservice");
+            return await _tokenService.GenerateTokenAsync(user);
         }
     }
 }

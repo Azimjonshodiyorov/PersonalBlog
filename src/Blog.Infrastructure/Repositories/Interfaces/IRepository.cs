@@ -13,6 +13,6 @@ namespace Blog.Infrastructure.Repositories.Interfaces
         Task AddAsync(T entity);
         Task DeleteAsync(T  entity);
         Task UpdateAsync(T entity);
-        Task<T?> GetByIdAsync(Guid id);
+        Task<T?> GetByIdAsync(long id);
     }
 }

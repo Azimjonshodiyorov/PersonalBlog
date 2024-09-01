@@ -1,6 +1,8 @@
-﻿namespace Blog.Application.Services.UserServices;
+﻿using Blog.Application.Services.UserServices.Interfaces;
 
-public class UserService
+namespace Blog.Application.Services.UserServices;
+
+public class UserService : IUserService
 {
     
 }

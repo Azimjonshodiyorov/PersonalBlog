@@ -29,4 +29,11 @@ public class RefreshTokenRepository : Repository<RefreshToken> , IRefreshTokenRe
         token.Revoked = DateTime.UtcNow;
         _dbContext.RefreshTokens.Update(token);
     }
+
+    public async Task<bool> IsRevokedAsync(string token)
+    {
+        var refreshToken = await this._dbContext.RefreshTokens
+            .SingleOrDefaultAsync(x => x.Token == token);
+        return refreshToken?.Revoked != null;
+    }
 }

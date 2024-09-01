@@ -25,7 +25,7 @@ namespace Blog.Infrastructure.Repositories
             _dbContext.Remove(entity);   
         }
 
-        public async Task<T?> GetByIdAsync(Guid id)
+        public async Task<T?> GetByIdAsync(long id)
         {
             return await _dbContext.Set<T>().FindAsync(id);
         }
