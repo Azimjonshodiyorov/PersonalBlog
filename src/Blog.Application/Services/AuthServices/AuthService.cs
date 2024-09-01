@@ -84,7 +84,7 @@ namespace Blog.Application.Services.AuthServices
             await _unitOfWork.RefreshTokens.UpdateAsync(refresh);
             await _unitOfWork.SaveChangesAsync();
             if (user != null)
-                throw new Exception("user Null authservice");
+                throw new Exception("user null authservice");
             return await _tokenService.GenerateTokenAsync(user);
         }
     }
