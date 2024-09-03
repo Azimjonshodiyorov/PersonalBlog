@@ -1,12 +1,22 @@
-﻿using System.Xml.Linq;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Xml.Linq;
 
 namespace Blog.Core.Entities;
 
 public class Post : BaseEntity
 {
-    public  string Title { get; set; }
-    public  string Description { get; set; }
+    [Column("title")]
+    public string Title { get; set; }
+
+    [Column("description")]
+    public string Description { get; set; }
+
+    [Column("image")]
     public string? Image { get; set; }
+
+    [Column("user_id")]
     public long UserId { get; set; }
+
+    [ForeignKey("UserId")]
     public User User { get; set; }
 }

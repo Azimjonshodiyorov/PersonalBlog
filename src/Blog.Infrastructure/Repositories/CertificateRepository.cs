@@ -6,7 +6,7 @@ namespace Blog.Infrastructure.Repositories;
 
 public class CertificateRepository : Repository<Certificate> , ICertificateRepository
 {
-    protected CertificateRepository(BlogDbContext dbContext) 
+    public CertificateRepository(BlogDbContext dbContext) 
         : base(dbContext)
     {
     }

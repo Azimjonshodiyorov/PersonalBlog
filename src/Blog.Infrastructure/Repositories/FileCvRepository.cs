@@ -8,7 +8,7 @@ public class FileCvRepository : Repository<FileCv> , IFileCvRepository
 {
     private readonly BlogDbContext _dbContext;
 
-    protected FileCvRepository(BlogDbContext dbContext ) 
+    public FileCvRepository(BlogDbContext dbContext ) 
         : base(dbContext)
     {
         _dbContext = dbContext;

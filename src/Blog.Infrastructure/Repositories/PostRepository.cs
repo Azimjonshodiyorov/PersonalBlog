@@ -9,7 +9,7 @@ public class PostRepository : Repository<Post> , IPostRepository
 {
     private readonly BlogDbContext _dbContext;
 
-    protected PostRepository(BlogDbContext dbContext) 
+    public PostRepository(BlogDbContext dbContext) 
         : base(dbContext)
     {
         _dbContext = dbContext;

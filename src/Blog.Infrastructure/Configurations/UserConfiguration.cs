@@ -27,7 +27,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .WithOne(x => x.User)
             .HasForeignKey(x => x.UserId);
 
-        builder
+/*        builder
             .HasData(new User()
             {
                  FirstName = "Azimjon",
@@ -39,6 +39,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
                  Password = "qwert12345",
                  CreateAt = DateTime.Now
             });
+            */
 
     }
 }

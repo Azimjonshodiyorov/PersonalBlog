@@ -6,7 +6,7 @@ public class AccountProfile : Profile
 {
     public AccountProfile()
     {
-        CreateMap<Core.Entities.User, LoginDto>();
-        CreateMap<Core.Entities.User, RegistrationDto>();
+        CreateMap<Core.Entities.User, LoginDto>().ReverseMap();
+        CreateMap<Core.Entities.User, RegistrationDto>().ReverseMap();
     }
 }

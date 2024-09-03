@@ -5,6 +5,7 @@ using Blog.Core.Entities;
 using AutoMapper;
 using Blog.Application.Services.TokenServices.Interfaces;
 using Blog.Infrastructure.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace Blog.Application.Services.AuthServices
@@ -54,7 +55,9 @@ namespace Blog.Application.Services.AuthServices
         {
             try
             {
-                var existingUser = await this._unitOfWork.Users.GetByEmailAsync(user.Email);
+                var existingUser = await this._unitOfWork.Users
+                    .Entities
+                    .Where(x=>x.Email == user.Email).FirstOrDefaultAsync();
                 if (existingUser != null)
                 {
                     throw new Exception("User already exists.");

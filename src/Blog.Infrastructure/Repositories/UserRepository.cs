@@ -9,13 +9,14 @@ public class UserRepository : Repository<User> , IUserRepository
 {
     private  readonly BlogDbContext _dbContext;
 
-    protected UserRepository(BlogDbContext dbContext) : base(dbContext)
+    public UserRepository(BlogDbContext dbContext) : base(dbContext)
     {
         _dbContext = dbContext;
     }
 
     public async Task<User> GetByEmailAsync(string email)
     {
+        var us = await this._dbContext.Users.FirstOrDefaultAsync();
         var user = await this._dbContext.Users.FirstOrDefaultAsync(x => x.Email == email);
         if (user == null)
         {

@@ -9,7 +9,7 @@ namespace Blog.Infrastructure.Repositories
     {
         protected readonly BlogDbContext _dbContext;
 
-        protected Repository(BlogDbContext dbContext) =>
+        public Repository(BlogDbContext dbContext) =>
                           _dbContext = dbContext;
         
 

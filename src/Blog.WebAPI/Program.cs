@@ -1,3 +1,4 @@
+using System.Text.Json;
 using Blog.Application;
 using Blog.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -35,7 +36,11 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 });
-
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+    });
 var app = builder.Build();
 
 
@@ -47,7 +52,10 @@ if (app.Environment.IsDevelopment())
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 app.UseHttpsRedirection();
 
 app.Run();

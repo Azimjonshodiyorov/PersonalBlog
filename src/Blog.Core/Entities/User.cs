@@ -1,20 +1,43 @@
-﻿using Blog.Core.Enum;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using Blog.Core.Enum;
 
 namespace Blog.Core.Entities;
 
 public sealed class User : BaseEntity
 {
-    public  string FirstName { get; set; }
-    public  string LastName { get; set; }
+    [Column("first_name")]
+    public string FirstName { get; set; }
+
+    [Column("last_name")]
+    public string LastName { get; set; }
+
+    [Column("birth_date")]
     public DateOnly? BirthDate { get; set; }
-    public  Gender Gender { get; set; }
-    public  string Email { get; set; }
+
+    [Column("gender")]
+    public Gender Gender { get; set; }
+
+    [Column("email")]
+    public string Email { get; set; }
+
+    [Column("password")]
     public string Password { get; set; }
+
+    [Column("phone_number")]
     public string? PhoneNumber { get; set; }
-    public IQueryable<Post> Posts { get; set; }
-    public IQueryable<FileCv> FileCvs { get; set; }
-    public IQueryable<Certificate> Certificates { get; set; }
-    public IQueryable<PetProject> PetProjects { get; set; }
+
+    [NotMapped]
+    public IQueryable<Post>? Posts { get; set; }
+
+    [NotMapped]
+    public IQueryable<FileCv>? FileCvs { get; set; }
+
+    [NotMapped]
+    public IQueryable<Certificate>? Certificates { get; set; }
+
+    [NotMapped]
+    public IQueryable<PetProject>? PetProjects { get; set; }
     
-    public List<RefreshToken> RefreshTokens { get; set; }
+    [NotMapped]
+    public List<RefreshToken>? RefreshTokens { get; set; }
 }

@@ -1,11 +1,24 @@
-﻿namespace Blog.Core.Entities;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Blog.Core.Entities;
 
 public class FileCv : BaseEntity
 {
-    public  string BucketName { get; set; }
-    public  string FileName { get; set; }
-    public  string FileType { get; set; }
-    public  ulong FileSize { get; set; }
+    [Column("bucket_name")]
+    public string BucketName { get; set; }
+
+    [Column("file_name")]
+    public string FileName { get; set; }
+
+    [Column("file_type")]
+    public string FileType { get; set; }
+
+    [Column("file_size")]
+    public ulong FileSize { get; set; }
+
+    [Column("user_id")]
     public long UserId { get; set; }
+
+    [ForeignKey("UserId")]
     public User User { get; set; }
 }

@@ -9,7 +9,7 @@ public class RefreshTokenRepository : Repository<RefreshToken> , IRefreshTokenRe
 {
     private readonly BlogDbContext _dbContext;
 
-    protected RefreshTokenRepository(BlogDbContext dbContext) : base(dbContext)
+    public RefreshTokenRepository(BlogDbContext dbContext) : base(dbContext)
     {
         _dbContext = dbContext;
     }

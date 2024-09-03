@@ -26,23 +26,39 @@ public static class DependencyInjection
 {
     public static void AddApplication(this IServiceCollection services, IConfiguration configuration)
     {
-        
-        services.Configure<JwtSettings>(configuration.GetSection("JWT"));
+        // Bind JwtSettings from the configuration
+        var jwtSettings = new JwtSettings();
+        configuration.GetSection("JwtSettings").Bind(jwtSettings);
+
+        // Register JwtSettings in the DI container
+        services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
+
+        // Register services
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<ICertificateService, CertificateService>();
-        services.AddScoped<IFileCvService,FileCvService>();
+        services.AddScoped<IFileCvService, FileCvService>();
         services.AddScoped<IPetProjectService, PetProjectService>();
         services.AddScoped<IPostService, PostService>();
         services.AddScoped<ITokenService, TokenService>();
+
+        // Register AutoMapper
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+        // Configure JWT Authentication
         services.AddAuthentication(options =>
         {
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
             options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
         }).AddJwtBearer(options =>
         {
-            var jwtSettings = configuration.GetSection("JWT").Get<JwtSettings>();
+            // Validate JwtSettings
+            if (jwtSettings == null || string.IsNullOrWhiteSpace(jwtSettings.Key))
+            {
+                throw new ArgumentNullException("JwtSettings.Key", "JWT Key cannot be null or empty.");
+            }
+
+            // Set up Token Validation Parameters
             options.TokenValidationParameters = new TokenValidationParameters
             {
                 ValidateIssuer = true,
@@ -54,8 +70,8 @@ public static class DependencyInjection
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key))
             };
         });
+
+        // Register MVC Controllers
         services.AddControllers();
     }
-    
-    
 }
