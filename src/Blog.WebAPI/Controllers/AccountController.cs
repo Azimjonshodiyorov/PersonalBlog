@@ -23,7 +23,7 @@ public class AccountController : ControllerBase
         return Ok(result);
     }
 
-    [HttpPut]
+    [HttpPost]
     [Route("login")]
     public async Task<IActionResult> LogInAsync(LoginDto dto)
     {
@@ -39,7 +39,7 @@ public class AccountController : ControllerBase
         return Ok();
     }
 
-    [HttpPut]
+    [HttpPost]
     [Route("refreshToken")]
     public async Task<IActionResult> RefreshAsync(string refreshToken)
     {

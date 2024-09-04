@@ -11,14 +11,14 @@ public class RefreshToken : BaseEntity
     [Column("expires")]
     public DateTime Expires { get; set; }
 
-    [Column("is_expired")]
-    public bool IsExpired { get; set; }
+    [NotMapped]
+    public bool IsExpired => DateTime.UtcNow >= Expires;
 
     [Column("revoked")]
     public DateTime? Revoked { get; set; }
 
-    [Column("is_active")]
-    public bool IsActive ;
+    [NotMapped]
+    public bool IsActive => Revoked == null && !IsExpired;
 
     [Column("user_id")]
     public long UserId { get; set; }

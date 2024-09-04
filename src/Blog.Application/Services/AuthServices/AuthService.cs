@@ -83,7 +83,8 @@ namespace Blog.Application.Services.AuthServices
                 throw new Exception("Invalid or revoked refresh token.");
             }
 
-            var user = await this._unitOfWork.Users.GetByIdAsync(refresh.UserId);
+            var user = await this._unitOfWork
+                .Users.GetByIdAsync(refresh.UserId);
             if (user == null)
             {
                 throw new Exception($"{refreshToken} {refresh.UserId} was not found.");

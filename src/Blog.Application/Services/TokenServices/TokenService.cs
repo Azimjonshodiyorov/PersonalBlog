@@ -5,6 +5,7 @@ using Blog.Application.DTOs.Tokens;
 using Blog.Application.Services.TokenServices.Interfaces;
 using Blog.Core.Entities;
 using Blog.Infrastructure.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
@@ -39,14 +40,24 @@ public class TokenService : ITokenService
             Audience = _jwtSettings.Audience,
             Issuer = _jwtSettings.Issuer
         };
+
+        var tokenUser = await (from refr in _unitOfWork.Context.Set<RefreshToken>()
+            join use in _unitOfWork.Context.Set<User>()
+            on refr.UserId equals user.Id
+            orderby refr.CreateAt descending
+            select refr).FirstOrDefaultAsync();
+      
         var token = tokenHandler.CreateToken(tokenDescription);
         var accessToken = tokenHandler.WriteToken(token);
         var refreshToken = GenerateRefreshToken(user);
-         user.RefreshTokens?.Add(refreshToken);
+
+        var refToken = tokenUser?.Token ?? refreshToken.Token;
+
+        user.RefreshTokens?.Add(refreshToken);
           await _unitOfWork.SaveChangesAsync();
         return new TokenResponse(
             AccessToken: accessToken,
-            RefreshToken: refreshToken.Token,
+            RefreshToken: refToken,
             ExpiresAt: tokenDescription.Expires.Value,
             RefreshExpiresAt: refreshToken.Expires
         );
@@ -60,7 +71,8 @@ public class TokenService : ITokenService
             Expires = DateTime.UtcNow.AddDays(_jwtSettings.RefreshLifetimeInDays),
             CreateAt = DateTime.UtcNow,
             UserId = user.Id,
-            User = user
+            User = user,
+            IsActive = true,
         };
 
         return refreshToken;

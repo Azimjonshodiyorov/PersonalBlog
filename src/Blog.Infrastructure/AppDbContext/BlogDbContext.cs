@@ -1,6 +1,7 @@
 ﻿using Blog.Core.Entities;
 using Blog.Infrastructure.Configurations;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Blog.Infrastructure.AppDbContext
 {
@@ -12,7 +13,10 @@ namespace Blog.Infrastructure.AppDbContext
         public DbSet<FileCv> FileCvs { get; set; }
         public DbSet<Certificate> Certificates { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
-        public BlogDbContext(DbContextOptions<BlogDbContext> options) : base(options) { }
+        public BlogDbContext([NotNull]DbContextOptions<BlogDbContext> options) : base(options) {
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+            AppContext.SetSwitch("Npgsql.DisableDateTimeInfinityConversions", true);
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

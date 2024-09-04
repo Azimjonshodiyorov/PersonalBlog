@@ -34,6 +34,6 @@ public class RefreshTokenRepository : Repository<RefreshToken> , IRefreshTokenRe
     {
         var refreshToken = await this._dbContext.RefreshTokens
             .SingleOrDefaultAsync(x => x.Token == token);
-        return refreshToken?.Revoked != null;
+        return refreshToken?.Revoked == null;
     }
 }

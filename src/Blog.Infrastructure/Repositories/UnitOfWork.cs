@@ -14,6 +14,7 @@ public class UnitOfWork : IUnitOfWork
         _context = context;
     }
 
+    public BlogDbContext Context { get =>_context; } 
     private IUserRepository _users;
     public IUserRepository Users => _users ??= new UserRepository(_context);
 

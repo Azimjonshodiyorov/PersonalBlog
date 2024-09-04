@@ -1,7 +1,10 @@
-﻿namespace Blog.Infrastructure.Repositories.Interfaces;
+﻿using Blog.Infrastructure.AppDbContext;
+
+namespace Blog.Infrastructure.Repositories.Interfaces;
 
 public interface IUnitOfWork : IDisposable
 {
+    BlogDbContext Context { get; }
     IUserRepository Users { get;  }
     IFileCvRepository FileCvs { get;  }
     IPetProjectRepository PetProjects { get;  }
