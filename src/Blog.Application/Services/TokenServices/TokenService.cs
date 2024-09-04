@@ -4,6 +4,7 @@ using System.Text;
 using Blog.Application.DTOs.Tokens;
 using Blog.Application.Services.TokenServices.Interfaces;
 using Blog.Core.Entities;
+using Blog.Infrastructure.Repositories.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
@@ -12,11 +13,13 @@ namespace Blog.Application.Services.TokenServices;
 public class TokenService : ITokenService
 {
     private readonly IConfiguration _configuration;
+    private readonly IUnitOfWork _unitOfWork;
     private readonly JwtSettings _jwtSettings;
-    public TokenService(IConfiguration configuration)
+    public TokenService(IConfiguration configuration , IUnitOfWork unitOfWork)
     {
         _jwtSettings = configuration.GetSection("JwtSettings").Get<JwtSettings>();
         _configuration = configuration;
+        _unitOfWork = unitOfWork;
     }
     public async Task<TokenResponse> GenerateTokenAsync(User user)
     {
@@ -39,6 +42,8 @@ public class TokenService : ITokenService
         var token = tokenHandler.CreateToken(tokenDescription);
         var accessToken = tokenHandler.WriteToken(token);
         var refreshToken = GenerateRefreshToken(user);
+         user.RefreshTokens?.Add(refreshToken);
+          await _unitOfWork.SaveChangesAsync();
         return new TokenResponse(
             AccessToken: accessToken,
             RefreshToken: refreshToken.Token,

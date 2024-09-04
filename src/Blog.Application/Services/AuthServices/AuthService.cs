@@ -42,7 +42,8 @@ namespace Blog.Application.Services.AuthServices
 
         public async Task<TokenResponse> LogInAsync(LoginDto dto)
         {
-            var user = await _unitOfWork.Users.GetByEmailAsync(dto.Email);
+            var user = await _unitOfWork.Users
+                .GetByEmailAndPasswordAsync(dto.Email , dto.Password);
             if (user == null)
             {
                 throw new Exception("Invalid credentials.");
@@ -83,11 +84,13 @@ namespace Blog.Application.Services.AuthServices
             }
 
             var user = await this._unitOfWork.Users.GetByIdAsync(refresh.UserId);
+            if (user == null)
+            {
+                throw new Exception($"{refreshToken} {refresh.UserId} was not found.");
+            }
             refresh.Revoked = DateTime.UtcNow;
             await _unitOfWork.RefreshTokens.UpdateAsync(refresh);
             await _unitOfWork.SaveChangesAsync();
-            if (user != null)
-                throw new Exception("user null authservice");
             return await _tokenService.GenerateTokenAsync(user);
         }
     }

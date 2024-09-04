@@ -3,7 +3,8 @@ using Blog.Core.Enum;
 
 namespace Blog.Core.Entities;
 
-public sealed class User : BaseEntity
+[Table("blog" , Schema ="user")]
+public  class User : BaseEntity
 {
     [Column("first_name")]
     public string FirstName { get; set; }
@@ -24,7 +25,7 @@ public sealed class User : BaseEntity
     public string Password { get; set; }
 
     [Column("phone_number")]
-    public string? PhoneNumber { get; set; }
+    public string PhoneNumber { get; set; }
 
     [NotMapped]
     public IQueryable<Post>? Posts { get; set; }
@@ -37,7 +38,7 @@ public sealed class User : BaseEntity
 
     [NotMapped]
     public IQueryable<PetProject>? PetProjects { get; set; }
-    
+
     [NotMapped]
-    public List<RefreshToken>? RefreshTokens { get; set; }
+    public List<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
 }

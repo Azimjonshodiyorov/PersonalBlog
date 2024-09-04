@@ -17,13 +17,19 @@ public class AccountController : ControllerBase
 
     [HttpPost]
     [Route("register")]
-    public async Task<TokenResponse> RegisterAsync(RegistrationDto user) =>
-        await this._authService.RegisterAsync(user);
+    public async Task<IActionResult> RegisterAsync(RegistrationDto user)
+    {
+        var result =  await this._authService.RegisterAsync(user);
+        return Ok(result);
+    }
 
     [HttpPut]
     [Route("login")]
-    public async Task<TokenResponse> LogInAsync(LoginDto dto) =>
-        await this._authService.LogInAsync(dto);
+    public async Task<IActionResult> LogInAsync(LoginDto dto)
+    {
+        var result =  await this._authService.LogInAsync(dto);
+        return Ok(result);
+    }
 
     [HttpPost]
     [Route("logOut")]
@@ -35,8 +41,12 @@ public class AccountController : ControllerBase
 
     [HttpPut]
     [Route("refreshToken")]
-    public async Task<TokenResponse> RefreshAsync(string refreshToken) =>
-        await this._authService.RefreshAsync(refreshToken);
+    public async Task<IActionResult> RefreshAsync(string refreshToken)
+    {
+        var refreshResult = await this._authService.RefreshAsync(refreshToken);
+        return Ok(refreshResult);
+
+    }
 
     [HttpPost]
     [Route("isRevoked")]

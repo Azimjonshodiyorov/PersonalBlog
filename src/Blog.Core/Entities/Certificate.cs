@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Blog.Core.Entities;
-
+[Table("blog" , Schema = "certificate")]
 public class Certificate : BaseEntity
 {
     [Column("image_base64")]
