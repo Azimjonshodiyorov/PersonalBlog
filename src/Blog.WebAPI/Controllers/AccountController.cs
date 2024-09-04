@@ -24,7 +24,7 @@ public class AccountController : ControllerBase
     }
 
     [HttpPost]
-    [Route("login")]
+    [Route("logIn")]
     public async Task<IActionResult> LogInAsync(LoginDto dto)
     {
         var result =  await this._authService.LogInAsync(dto);

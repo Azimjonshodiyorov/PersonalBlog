@@ -78,10 +78,10 @@ namespace Blog.Application.Services.AuthServices
         public async Task<TokenResponse> RefreshAsync(string refreshToken)
         {
             var refresh = await this._unitOfWork.RefreshTokens.GetTokenAsync(refreshToken);
-            if (refresh == null || await _unitOfWork.RefreshTokens.IsRevokedAsync(refreshToken) || !refresh.IsActive)
-            {
-                throw new Exception("Invalid or revoked refresh token.");
-            }
+            //if (refresh == null || await _unitOfWork.RefreshTokens.IsRevokedAsync(refreshToken) || !refresh.IsActive)
+            //{
+            //    throw new Exception("Invalid or revoked refresh token.");
+            //}
 
             var user = await this._unitOfWork
                 .Users.GetByIdAsync(refresh.UserId);
