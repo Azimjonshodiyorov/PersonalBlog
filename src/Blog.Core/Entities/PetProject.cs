@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Blog.Core.Entities;
-[Table("blog" , Schema ="pet_project")]
+[Table("pet_project" , Schema ="blog")]
 public class PetProject : BaseEntity
 {
     [Column("project_name")]

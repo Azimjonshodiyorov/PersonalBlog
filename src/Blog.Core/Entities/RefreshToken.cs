@@ -2,7 +2,7 @@
 
 namespace Blog.Core.Entities;
 
-[Table("blog",Schema ="token")]
+[Table("refresh_token",Schema ="blog")]
 public class RefreshToken : BaseEntity
 {
     [Column("token")]

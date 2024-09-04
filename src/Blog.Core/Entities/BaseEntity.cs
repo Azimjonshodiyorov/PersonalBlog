@@ -9,9 +9,9 @@ public class BaseEntity
     [Key]
     public long Id { get; set; }
 
-    [Column("created_at")]
-    public DateTime CreateAt { get; set; }
+    [Column("created_at")] 
+    public DateTime CreateAt { get; set; } = DateTime.Now;
 
     [Column("updated_at")]
-    public DateTime UpdateAt { get; set; }
+    public DateTime UpdateAt { get; set; } = DateTime.Now;
 }

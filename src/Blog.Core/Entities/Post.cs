@@ -2,7 +2,7 @@
 using System.Xml.Linq;
 
 namespace Blog.Core.Entities;
-[Table("blog",Schema ="post")]
+[Table("post",Schema ="blog")]
 public class Post : BaseEntity
 {
     [Column("title")]

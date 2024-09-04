@@ -3,6 +3,7 @@ using System;
 using Blog.Infrastructure.AppDbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Blog.Infrastructure.Migrations
 {
     [DbContext(typeof(BlogDbContext))]
-    partial class BlogDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240904154646_initil3")]
+    partial class initil3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,7 +65,7 @@ namespace Blog.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("certificate", "blog");
+                    b.ToTable("blog", "certificate");
                 });
 
             modelBuilder.Entity("Blog.Core.Entities.FileCv", b =>
@@ -109,7 +112,7 @@ namespace Blog.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("file_cv", "blog");
+                    b.ToTable("FileCvs");
                 });
 
             modelBuilder.Entity("Blog.Core.Entities.PetProject", b =>
@@ -155,9 +158,10 @@ namespace Blog.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("IX_blog_user_id1");
 
-                    b.ToTable("pet_project", "blog");
+                    b.ToTable("blog", "pet_project");
                 });
 
             modelBuilder.Entity("Blog.Core.Entities.Post", b =>
@@ -197,9 +201,10 @@ namespace Blog.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("IX_blog_user_id2");
 
-                    b.ToTable("post", "blog");
+                    b.ToTable("blog", "post");
                 });
 
             modelBuilder.Entity("Blog.Core.Entities.RefreshToken", b =>
@@ -242,9 +247,10 @@ namespace Blog.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("IX_blog_user_id3");
 
-                    b.ToTable("refresh_token", "blog");
+                    b.ToTable("blog", "token");
                 });
 
             modelBuilder.Entity("Blog.Core.Entities.User", b =>
@@ -299,7 +305,7 @@ namespace Blog.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("user", "blog");
+                    b.ToTable("blog", "user");
                 });
 
             modelBuilder.Entity("Blog.Core.Entities.Certificate", b =>

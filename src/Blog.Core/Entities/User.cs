@@ -3,7 +3,7 @@ using Blog.Core.Enum;
 
 namespace Blog.Core.Entities;
 
-[Table("blog" , Schema ="user")]
+[Table("user" , Schema ="blog")]
 public  class User : BaseEntity
 {
     [Column("first_name")]

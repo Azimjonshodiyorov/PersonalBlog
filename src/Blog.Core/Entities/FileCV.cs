@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Blog.Core.Entities;
-
+[Table("file_cv", Schema = "blog")]
 public class FileCv : BaseEntity
 {
     [Column("bucket_name")]
