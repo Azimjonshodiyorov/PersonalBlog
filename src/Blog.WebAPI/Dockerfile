@@ -7,10 +7,18 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["src/Blog.WebAPI/Blog.WebAPI.csproj", "src/Blog.WebAPI/"]
-RUN dotnet restore "src/Blog.WebAPI/Blog.WebAPI.csproj"
+
+# Blog.WebAPI loyihasi uchun nisbiy yo'l to'g'ri
+COPY ["Blog.WebAPI/Blog.WebAPI.csproj", "Blog.WebAPI/"]
+
+# Boshqa loyihalar uchun yo'llar to'g'ri bo'lishi kerak
+COPY ["../Blog.Application/Blog.Application.csproj", "../Blog.Application/"]
+COPY ["../Blog.Infrastructure/Blog.Infrastructure.csproj", "../Blog.Infrastructure/"]
+COPY ["../Blog.Core/Blog.Core.csproj", "../Blog.Core/"]
+
+RUN dotnet restore "Blog.WebAPI/Blog.WebAPI.csproj"
 COPY . .
-WORKDIR "/src/src/Blog.WebAPI"
+WORKDIR "/src/Blog.WebAPI"
 RUN dotnet build "Blog.WebAPI.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish

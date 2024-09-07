@@ -13,7 +13,7 @@ public class FileCv : BaseEntity
     [Column("file_type")]
     public string FileType { get; set; }
 
-    [Column("file_size")]
+    [Column("file_size")] 
     public ulong FileSize { get; set; }
 
     [Column("user_id")]
