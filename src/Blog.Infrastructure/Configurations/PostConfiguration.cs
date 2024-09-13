@@ -12,6 +12,11 @@ namespace Blog.Infrastructure.Configurations
                 .HasOne(x => x.User)
                 .WithMany(x => x.Posts)
                 .HasForeignKey(x => x.UserId);
+
+            builder
+                .HasMany(x=>x.PostFiles)
+                .WithOne(x=>x.Post)
+                .HasForeignKey(x=>x.OwnerId);
         }
     }
 }

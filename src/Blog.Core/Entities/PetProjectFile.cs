@@ -20,6 +20,6 @@ public class PetProjectFile
     [Column("delete_at")]
     public DateTime? DeletedAt { get; set; } // Fayl o'chirilgan vaqti
     [NotMapped]
-    public PetProject petProject { get; set; }
+    public PetProject PetProject { get; set; }
 
 }

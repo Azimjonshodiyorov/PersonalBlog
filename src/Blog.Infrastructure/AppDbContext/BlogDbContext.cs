@@ -10,6 +10,9 @@ namespace Blog.Infrastructure.AppDbContext
         public DbSet<Post> Posts { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<PetProject> PetProjects { get; set; }
+        public DbSet<PetProjectFile> PetProjectFiles { get; set; }
+        public DbSet<PostFile> PostFiles { get; set; }
+        public DbSet<CertificateFile> CertificateFiles { get; set; }
         public DbSet<FileCv> FileCvs { get; set; }
         public DbSet<Certificate> Certificates { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
@@ -22,6 +25,8 @@ namespace Blog.Infrastructure.AppDbContext
         {
             modelBuilder.ApplyConfiguration(new PostConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new PetProjectConfiguration());
+            modelBuilder.ApplyConfiguration(new CertificateConfiguration());
         }
     }
 }

@@ -4,17 +4,14 @@ namespace Blog.Core.Entities;
 [Table("file_cv", Schema = "blog")]
 public class FileCv : BaseEntity
 {
-    [Column("bucket_name")]
-    public string BucketName { get; set; }
-
+    [Column("id2")]
+    public Guid Id2 { get; set; } // Faylning noyob ID si
     [Column("file_name")]
-    public string FileName { get; set; }
-
-    [Column("file_type")]
-    public string FileType { get; set; }
-
-    [Column("file_size")] 
-    public ulong FileSize { get; set; }
+    public string FileName { get; set; } // Fayl nomi
+    [Column("file_extension")]
+    public string FileExtension { get; set; } // Fayl kengaytmasi (masalan, .jpg, .pdf)
+    [Column("is_deleted")]
+    public bool IsDeleted { get; set; } // Fayl o'chirilganmi yoki yo'qmi
 
     [Column("user_id")]
     public long UserId { get; set; }

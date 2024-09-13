@@ -20,9 +20,9 @@ public class Post : BaseEntity
     [ForeignKey("UserId")]
     public User User { get; set; }
     [NotMapped]
-    public ICollection<PostFile> postFiles { get; set; }
+    public ICollection<PostFile> PostFiles { get; set; }
     public Post()
     {
-        postFiles = new List<PostFile>();
+        PostFiles = new List<PostFile>();
     }
 }
