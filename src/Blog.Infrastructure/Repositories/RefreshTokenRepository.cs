@@ -7,7 +7,7 @@ namespace Blog.Infrastructure.Repositories;
 
 public class RefreshTokenRepository : Repository<RefreshToken> , IRefreshTokenRepository
 {
-    private readonly BlogDbContext _dbContext;
+    private  readonly BlogDbContext _dbContext;
 
     public RefreshTokenRepository(BlogDbContext dbContext) : base(dbContext)
     {

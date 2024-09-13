@@ -19,4 +19,10 @@ public class Post : BaseEntity
 
     [ForeignKey("UserId")]
     public User User { get; set; }
+    [NotMapped]
+    public ICollection<PostFile> postFiles { get; set; }
+    public Post()
+    {
+        postFiles = new List<PostFile>();
+    }
 }

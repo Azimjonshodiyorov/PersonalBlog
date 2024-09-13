@@ -59,6 +59,8 @@ public static class DependencyInjection
             }
 
             // Set up Token Validation Parameters
+            options.RequireHttpsMetadata = true; // HTTPS ni talab qiladimi tekshirish
+            options.SaveToken = true;
             options.TokenValidationParameters = new TokenValidationParameters
             {
                 ValidateIssuer = true,

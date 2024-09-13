@@ -24,4 +24,11 @@ public class PetProject : BaseEntity
 
     [ForeignKey("UserId")]
     public User User { get; set; }
+    [NotMapped]
+    public ICollection<PetProjectFile>  PetProjectFiles { get; set; }
+    public PetProject()
+    {
+        Skills = new List<string>();
+        PetProjectFiles = new List<PetProjectFile>();
+    }
 }

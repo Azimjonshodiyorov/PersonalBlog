@@ -4,8 +4,6 @@ namespace Blog.Core.Entities;
 [Table("certificate" , Schema = "blog")]
 public class Certificate : BaseEntity
 {
-    [Column("image_base64")]
-    public string ImageBase64 { get; set; }
 
     [Column("certificate_link")]
     public string CertificateLink { get; set; }
@@ -18,4 +16,10 @@ public class Certificate : BaseEntity
 
     [ForeignKey("UserId")]
     public User User { get; set; }
+    [NotMapped]
+    public ICollection<CertificateFile>  CertificateFiles { get; set; }
+    public Certificate()
+    {
+            CertificateFiles = new List<CertificateFile>();
+    }
 }
