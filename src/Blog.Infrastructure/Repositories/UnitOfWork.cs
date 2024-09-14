@@ -1,4 +1,5 @@
-﻿using Blog.Core.Entities;
+﻿using Blog.Core.Common;
+using Blog.Core.Entities;
 using Blog.Infrastructure.AppDbContext;
 using Blog.Infrastructure.Repositories.Interfaces;
 
@@ -23,6 +24,9 @@ public class UnitOfWork : IUnitOfWork
 
     private IPetProjectRepository _petProjects;
     public IPetProjectRepository PetProjects => _petProjects ??= new PetProjectRepository(_context);
+    private IFileMetadataRepository<IFileMetadata> _fileMetadata;
+
+    public IFileMetadataRepository<IFileMetadata> FileMetadatas => _fileMetadata??= new FileMetadataRepository<IFileMetadata>(_context);
 
     private IRefreshTokenRepository _refreshTokens;
     public IRefreshTokenRepository RefreshTokens => _refreshTokens ??= new RefreshTokenRepository(_context);
