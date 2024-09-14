@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using System.Text;
-using Blog.Application.DTOs.Account.Mapping;
 using Blog.Application.DTOs.File;
 using Blog.Application.Services.AuthServices;
 using Blog.Application.Services.AuthServices.Interfaces;
@@ -89,5 +88,5 @@ public static class DependencyInjection
 
         // Register MVC Controllers
         services.AddControllers();
-    }
+      }
 }
