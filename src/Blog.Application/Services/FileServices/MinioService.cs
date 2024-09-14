@@ -35,14 +35,14 @@ public class MinioService<T> : IMinioService<T> where T : class ,IFileMetadata
 
             await _minioClient.PutObjectAsync(new PutObjectArgs()
                 .WithBucket(bucketName)
-                .WithObject(fileName)
+                .WithObject(file.FileName)
                 .WithStreamData(stream)
                 .WithObjectSize(file.Length)
                 .WithContentType(file.ContentType));
 
             var fileMetadata = Activator.CreateInstance<T>();
             fileMetadata.Id2 = id2;
-            fileMetadata.FileName = fileName;
+            fileMetadata.FileName = file.FileName;
             fileMetadata.FileExtension = Path.GetExtension(file.FileName);
             fileMetadata.IsDeleted = false;
             fileMetadata.OwnerId = ownerId;
@@ -79,8 +79,21 @@ public class MinioService<T> : IMinioService<T> where T : class ,IFileMetadata
 
     public async Task<bool> DeleteFileAsync(string bucketName, Guid id2)
     {
-        throw new NotImplementedException();
-    }
+        try
+        {
+            var fileName = $"{id2}";
+            await _minioClient.RemoveObjectAsync(new RemoveObjectArgs()
+                .WithBucket(bucketName)
+                .WithObject(fileName));
+
+            await UpdateFileStatusAsync(id2, true);
+
+            return true;
+        }
+        catch (Exception ex)
+        {
+            throw new ApplicationException("Faylni o'chirishda xatolik yuz berdi", ex);
+        }    }
 
     public async Task<bool> SaveFileMetadataAsync(Guid id2, string fileName, string fileExtension, long ownerId)
     {
@@ -101,6 +114,15 @@ public class MinioService<T> : IMinioService<T> where T : class ,IFileMetadata
 
     public async Task<bool> UpdateFileStatusAsync(Guid id2, bool isDeleted)
     {
-        throw new NotImplementedException();
-    }
+        var fileMetadata = await _fileMetadataRepository.FindByIdAsync(id2);
+
+        if (fileMetadata != null)
+        {
+            fileMetadata.IsDeleted = isDeleted;
+            //fileMetadata.DeletedAt = isDeleted ? DateTime.UtcNow : (DateTime?)null;
+            await _unitOfWork.SaveChangesAsync();
+            return true;
+        }
+
+        return false;    }
 }
