@@ -28,26 +28,31 @@ public static class DependencyInjection
 {
     public static void AddApplication(this IServiceCollection services, IConfiguration configuration)
     {
-        
         // Bind JwtSettings from the configuration
         var jwtSettings = new JwtSettings();
         configuration.GetSection("JwtSettings").Bind(jwtSettings);
 
-        // Register JwtSettings in the DI container
+        // Bind MinioSettings
+        var minioSettings = new MinioSettings();
+        configuration.GetSection("MinioSettings").Bind(minioSettings);
+
+        // Register MinioClient
+        services.AddSingleton<MinioClient>(sp =>
+        {
+            return (MinioClient)new MinioClient()
+                .WithEndpoint(minioSettings.Endpoint, 9000)
+                .WithCredentials(minioSettings.AccessKey, minioSettings.SecretKey)
+                .WithSSL(false)
+                .Build();
+        });
+
+        // Register JwtSettings and MinioSettings in the DI container
         services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
         services.Configure<MinioSettings>(configuration.GetSection("MinioSettings"));
 
-        services.AddSingleton(x =>
-        {
-            var minioSettings = x.GetRequiredService<IOptions<MinioSettings>>().Value;
-            return new MinioClient()
-                .WithEndpoint(minioSettings.Endpoint)
-                .WithCredentials(minioSettings.AccessKey, minioSettings.SecretKey)
-                .Build();
-        });
         // Register services
         services.AddScoped<IPostService, PostService>();
-        services.AddScoped(typeof(IMinioService<>) , typeof(MinioService<>));
+        services.AddScoped(typeof(IMinioService<>), typeof(MinioService<>));
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<ICertificateService, CertificateService>();
@@ -57,7 +62,7 @@ public static class DependencyInjection
 
         // Register AutoMapper
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
-        
+
         // Configure JWT Authentication
         services.AddAuthentication(options =>
         {
@@ -88,5 +93,6 @@ public static class DependencyInjection
 
         // Register MVC Controllers
         services.AddControllers();
-      }
+    }
+
 }

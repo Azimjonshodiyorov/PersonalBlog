@@ -1,7 +1,10 @@
-﻿using Blog.Application.Services.FileServices.Interfaces;
+﻿using Blog.Application.Common;
+using Blog.Application.Services.FileServices.Interfaces;
 using Blog.Core.Common;
+using Blog.Core.Entities;
 using Blog.Infrastructure.Repositories.Interfaces;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Minio;
 using Minio.DataModel.Args;
 
@@ -35,7 +38,7 @@ public class MinioService<T> : IMinioService<T> where T : class ,IFileMetadata
 
             await _minioClient.PutObjectAsync(new PutObjectArgs()
                 .WithBucket(bucketName)
-                .WithObject(file.FileName)
+                .WithObject(fileName)
                 .WithStreamData(stream)
                 .WithObjectSize(file.Length)
                 .WithContentType(file.ContentType));
@@ -62,13 +65,15 @@ public class MinioService<T> : IMinioService<T> where T : class ,IFileMetadata
     {
         try
         {
-            var fileName = $"{id2}";
+            var entity = await _unitOfWork.Context.Set<PostFile>().FirstOrDefaultAsync(x=>x.Id2 == id2);
+            if (entity == null)
+                throw new Exception("File not found ");
+            var fileName = $"{id2}{entity.FileExtension}";
             using var memoryStream = new MemoryStream();
             await _minioClient.GetObjectAsync(new GetObjectArgs()
                 .WithBucket(bucketName)
                 .WithObject(fileName)
                 .WithCallbackStream(stream => stream.CopyTo(memoryStream)));
-
             return memoryStream.ToArray();
         }
         catch (Exception ex)

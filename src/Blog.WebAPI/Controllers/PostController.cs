@@ -25,15 +25,29 @@ public class PostController : ControllerBase
     }
 
     [HttpGet("getById")]
-    public async Task<PostDto> GetById(long id)
+    public async Task<IActionResult> GetById(long id)
     {
-        return await this._postService.GetByIdAsync(id);
+        return Ok(await this._postService.GetByIdAsync(id));
     }
 
     [HttpPost("add")]
-    public async Task<PostDto> CreatePostAsync(CreatePostDto dto)
+    public async Task<IActionResult> CreatePostAsync(CreatePostDto dto)
     {
-        return await this._postService.CreateAsync(dto);
+        return Ok( await this._postService.CreateAsync(dto));
     }
-    
+
+    [HttpPost("uploadFile")]
+    public async Task<IActionResult> UploadFile(IFormFile file)
+    {
+        return Ok(await _postService.UploadFile(file , 1));
+
+    }
+
+    [HttpPost("download")]
+    public async Task<IActionResult> DownloadFile(string backetName, Guid id2)
+    {
+        return Ok(await _postService.DownloadFile(backetName, id2));
+
+    }
+
 }
