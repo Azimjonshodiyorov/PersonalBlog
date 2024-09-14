@@ -16,7 +16,7 @@ public class MinioService<T> : IMinioService<T> where T : class ,IFileMetadata
     public MinioService(IUnitOfWork unitOfWork , MinioClient minioClient , IFileMetadataRepository<T> fileMetadataRepository) 
     {
         _unitOfWork = unitOfWork;
-        _minioClient = minioClient;
+        _minioClient = minioClient ?? throw new ArgumentNullException(nameof(minioClient));
         _fileMetadataRepository = fileMetadataRepository;
     }
     public async Task<string> UploadFileAsync(IFormFile file, string bucketName, Guid id2, long ownerId)

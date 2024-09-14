@@ -69,16 +69,32 @@ public class PostService : IPostService
 
     public async Task<byte[]> DownloadFile(string backetName, Guid id2)
     {
-        throw new NotImplementedException();
+        return await this._minioService.GetFileByIdAsync(backetName, id2);
     }
 
     public async Task<PostDto> GetByIdAsync(long id)
     {
-        throw new NotImplementedException();
+        var post = _unitOfWork.Posts.GetByIdAsync(id);
+        if (post is null)
+            throw new Exception($"Post not found ");
+        var postMap = _mapper.Map<PostDto>(post);
+        return postMap;
     }
 
-    public async Task<List<PostDto>> GetListAsync()
+    public async Task<PagedResult<PostDto>> GetListAsync(int pageNumber , int pageSize)
     {
-        throw new NotImplementedException();
+        var query = _unitOfWork.Posts.Entities.AsQueryable();
+
+        var pagedPosts = PagedResult<Post>.Paginate(query, pageNumber, pageSize);
+
+        var postDtos = _mapper.Map<List<PostDto>>(pagedPosts.Items);
+
+        return new PagedResult<PostDto>(
+            postDtos, 
+            pagedPosts.TotalRecords,
+            pagedPosts.PageNumber,
+            pagedPosts.PageSize
+        );
+
     }
 }

@@ -12,9 +12,6 @@ public class Post : BaseEntity
     [Column("description")]
     public string Description { get; set; }
 
-    [Column("image")]
-    public string? Image { get; set; }
-
     [Column("user_id")]
     public long UserId { get; set; }
 

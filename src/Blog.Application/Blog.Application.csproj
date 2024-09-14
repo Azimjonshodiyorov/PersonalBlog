@@ -13,6 +13,7 @@
       <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0" />
       <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.0" />
       <PackageReference Include="Minio" Version="6.0.3" />
+      <PackageReference Include="Minio.Client.Http.DependencyInjection" Version="1.0.9" />
     </ItemGroup>
 
     <ItemGroup>

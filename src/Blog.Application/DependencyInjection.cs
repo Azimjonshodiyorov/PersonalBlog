@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using System.Text;
 using Blog.Application.DTOs.Account.Mapping;
+using Blog.Application.DTOs.File;
 using Blog.Application.Services.AuthServices;
 using Blog.Application.Services.AuthServices.Interfaces;
 using Blog.Application.Services.CertificateServices;
@@ -18,7 +19,9 @@ using Blog.Application.Services.UserServices.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Minio;
 
 namespace Blog.Application;
 
@@ -26,25 +29,36 @@ public static class DependencyInjection
 {
     public static void AddApplication(this IServiceCollection services, IConfiguration configuration)
     {
+        
         // Bind JwtSettings from the configuration
         var jwtSettings = new JwtSettings();
         configuration.GetSection("JwtSettings").Bind(jwtSettings);
 
         // Register JwtSettings in the DI container
         services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
+        services.Configure<MinioSettings>(configuration.GetSection("MinioSettings"));
 
+        services.AddSingleton(x =>
+        {
+            var minioSettings = x.GetRequiredService<IOptions<MinioSettings>>().Value;
+            return new MinioClient()
+                .WithEndpoint(minioSettings.Endpoint)
+                .WithCredentials(minioSettings.AccessKey, minioSettings.SecretKey)
+                .Build();
+        });
         // Register services
+        services.AddScoped<IPostService, PostService>();
+        services.AddScoped(typeof(IMinioService<>) , typeof(MinioService<>));
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<ICertificateService, CertificateService>();
         services.AddScoped<IFileCvService, FileCvService>();
         services.AddScoped<IPetProjectService, PetProjectService>();
-        services.AddScoped<IPostService, PostService>();
         services.AddScoped<ITokenService, TokenService>();
 
         // Register AutoMapper
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
-
+        
         // Configure JWT Authentication
         services.AddAuthentication(options =>
         {
