@@ -1,4 +1,5 @@
 ﻿using Blog.Application.Services.FileServices.Interfaces;
+using Blog.Core.Common;
 using Blog.Infrastructure.Repositories.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Minio;
@@ -6,15 +7,17 @@ using Minio.DataModel.Args;
 
 namespace Blog.Application.Services.FileServices;
 
-public class MinioService : IMinioService
+public class MinioService<T> : IMinioService<T> where T : class ,IFileMetadata
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly MinioClient _minioClient;
+    private readonly IFileMetadataRepository<T> _fileMetadataRepository;
 
-    public MinioService(IUnitOfWork unitOfWork , MinioClient minioClient)
+    public MinioService(IUnitOfWork unitOfWork , MinioClient minioClient , IFileMetadataRepository<T> fileMetadataRepository) 
     {
         _unitOfWork = unitOfWork;
         _minioClient = minioClient;
+        _fileMetadataRepository = fileMetadataRepository;
     }
     public async Task<string> UploadFileAsync(IFormFile file, string bucketName, Guid id2, long ownerId)
     {
@@ -22,20 +25,31 @@ public class MinioService : IMinioService
         {
             var fileName = $"{id2}{Path.GetExtension(file.FileName)}";
             await using var stream = file.OpenReadStream();
-            bool bucketExists = await _minioClient.BucketExistsAsync(new BucketExistsArgs()
-                .WithBucket(bucketName));
+
+            bool bucketExists = await _minioClient.BucketExistsAsync(new BucketExistsArgs().WithBucket(bucketName));
             if (!bucketExists)
             {
-                await _minioClient.MakeBucketAsync(new MakeBucketArgs().WithBucket(bucketName));
+                await _minioClient.MakeBucketAsync(new MakeBucketArgs()
+                    .WithBucket(bucketName));
             }
+
             await _minioClient.PutObjectAsync(new PutObjectArgs()
                 .WithBucket(bucketName)
                 .WithObject(fileName)
                 .WithStreamData(stream)
                 .WithObjectSize(file.Length)
                 .WithContentType(file.ContentType));
-            
-            await SaveFileMetadataAsync(id2, fileName, Path.GetExtension(file.FileName), ownerId);
+
+            var fileMetadata = Activator.CreateInstance<T>();
+            fileMetadata.Id2 = id2;
+            fileMetadata.FileName = fileName;
+            fileMetadata.FileExtension = Path.GetExtension(file.FileName);
+            fileMetadata.IsDeleted = false;
+            fileMetadata.OwnerId = ownerId;
+
+            await _fileMetadataRepository.AddAsync(fileMetadata);
+            await _unitOfWork.SaveChangesAsync();
+
             return fileName;
         }
         catch (Exception e)
