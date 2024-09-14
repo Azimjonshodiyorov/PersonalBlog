@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using Blog.Core.Common;
 
 namespace Blog.Core.Entities;
 [Table("file_cv", Schema = "blog")]

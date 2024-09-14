@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Blog.Core.Entities;
+namespace Blog.Core.Common;
 
 public class BaseEntity
 {
@@ -13,5 +13,5 @@ public class BaseEntity
     public DateTime CreateAt { get; set; } = DateTime.Now;
 
     [Column("updated_at")]
-    public DateTime UpdateAt { get; set; } = DateTime.Now;
+    public DateTime UpdateAt { get; set; } 
 }

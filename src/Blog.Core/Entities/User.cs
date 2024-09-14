@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using Blog.Core.Common;
 using Blog.Core.Enum;
 
 namespace Blog.Core.Entities;

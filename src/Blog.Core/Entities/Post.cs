@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Xml.Linq;
+using Blog.Core.Common;
 
 namespace Blog.Core.Entities;
 [Table("post",Schema ="blog")]
@@ -21,8 +22,4 @@ public class Post : BaseEntity
     public User User { get; set; }
     [NotMapped]
     public ICollection<PostFile> PostFiles { get; set; }
-    public Post()
-    {
-        PostFiles = new List<PostFile>();
-    }
 }

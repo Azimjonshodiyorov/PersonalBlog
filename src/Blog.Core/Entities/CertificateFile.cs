@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Blog.Core.Common;
 
 namespace Blog.Core.Entities;
-[Table("blog", Schema = "certificate_file")]
-public class CertificateFile
-{
+[Table("certificate_file", Schema = "blog")]
+public class CertificateFile : BaseEntity , IFileMetadata
+{ 
     [Column("owner_id")]
     public long OwnerId { get; set; }
     [Column("id2")]
@@ -14,10 +16,6 @@ public class CertificateFile
     public string FileExtension { get; set; } // Fayl kengaytmasi (masalan, .jpg, .pdf)
     [Column("is_deleted")]
     public bool IsDeleted { get; set; } // Fayl o'chirilganmi yoki yo'qmi
-    [Column("uploaded_at")]
-    public DateTime UploadedAt { get; set; } // Fayl yuklangan vaqti
-    [Column("delete_at")]
-    public DateTime? DeletedAt { get; set; } // Fayl o'chirilgan vaqti
     [NotMapped]
     public Certificate Certificate { get; set; }
 }

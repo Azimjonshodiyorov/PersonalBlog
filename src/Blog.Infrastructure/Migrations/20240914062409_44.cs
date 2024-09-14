@@ -5,7 +5,7 @@
 namespace Blog.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class INIYIL2 : Migration
+    public partial class _44 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

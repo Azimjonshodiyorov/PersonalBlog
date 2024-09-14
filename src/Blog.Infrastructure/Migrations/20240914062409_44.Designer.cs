@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Blog.Infrastructure.Migrations
 {
     [DbContext(typeof(BlogDbContext))]
-    [Migration("20240904155133_initil4")]
-    partial class initil4
+    [Migration("20240914062409_44")]
+    partial class _44
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,7 +40,7 @@ namespace Blog.Infrastructure.Migrations
                         .HasColumnName("certificate_link");
 
                     b.Property<DateTime>("CreateAt")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("created_at");
 
                     b.Property<string>("Description")
@@ -48,13 +48,8 @@ namespace Blog.Infrastructure.Migrations
                         .HasColumnType("text")
                         .HasColumnName("description");
 
-                    b.Property<string>("ImageBase64")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("image_base64");
-
                     b.Property<DateTime>("UpdateAt")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("updated_at");
 
                     b.Property<long>("UserId")
@@ -68,6 +63,59 @@ namespace Blog.Infrastructure.Migrations
                     b.ToTable("certificate", "blog");
                 });
 
+            modelBuilder.Entity("Blog.Core.Entities.CertificateFile", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("delete_at");
+
+                    b.Property<string>("FileExtension")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("file_extension");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("file_name");
+
+                    b.Property<Guid>("Id2")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_deleted");
+
+                    b.Property<long>("OwnerId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("owner_id");
+
+                    b.Property<DateTime>("UpdateAt")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("updated_at");
+
+                    b.Property<DateTime>("UploadedAt")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("uploaded_at");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OwnerId");
+
+                    b.ToTable("certificate_file", "blog");
+                });
+
             modelBuilder.Entity("Blog.Core.Entities.FileCv", b =>
                 {
                     b.Property<long>("Id")
@@ -77,31 +125,30 @@ namespace Blog.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<string>("BucketName")
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<string>("FileExtension")
                         .IsRequired()
                         .HasColumnType("text")
-                        .HasColumnName("bucket_name");
-
-                    b.Property<DateTime>("CreateAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("created_at");
+                        .HasColumnName("file_extension");
 
                     b.Property<string>("FileName")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("file_name");
 
-                    b.Property<decimal>("FileSize")
-                        .HasColumnType("numeric(20,0)")
-                        .HasColumnName("file_size");
+                    b.Property<Guid>("Id2")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id2");
 
-                    b.Property<string>("FileType")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("file_type");
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_deleted");
 
                     b.Property<DateTime>("UpdateAt")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("updated_at");
 
                     b.Property<long>("UserId")
@@ -125,7 +172,7 @@ namespace Blog.Infrastructure.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<DateTime>("CreateAt")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("created_at");
 
                     b.Property<string>("DemoLink")
@@ -149,7 +196,7 @@ namespace Blog.Infrastructure.Migrations
                         .HasColumnName("project_name");
 
                     b.Property<DateTime>("UpdateAt")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("updated_at");
 
                     b.Property<long>("UserId")
@@ -163,6 +210,59 @@ namespace Blog.Infrastructure.Migrations
                     b.ToTable("pet_project", "blog");
                 });
 
+            modelBuilder.Entity("Blog.Core.Entities.PetProjectFile", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("delete_at");
+
+                    b.Property<string>("FileExtension")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("file_extension");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("file_name");
+
+                    b.Property<Guid>("Id2")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_deleted");
+
+                    b.Property<long>("OwnerId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("owner_id");
+
+                    b.Property<DateTime>("UpdateAt")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("updated_at");
+
+                    b.Property<DateTime>("UploadedAt")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("uploaded_at");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OwnerId");
+
+                    b.ToTable("pet_project_file", "blog");
+                });
+
             modelBuilder.Entity("Blog.Core.Entities.Post", b =>
                 {
                     b.Property<long>("Id")
@@ -173,7 +273,7 @@ namespace Blog.Infrastructure.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<DateTime>("CreateAt")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("created_at");
 
                     b.Property<string>("Description")
@@ -191,7 +291,7 @@ namespace Blog.Infrastructure.Migrations
                         .HasColumnName("title");
 
                     b.Property<DateTime>("UpdateAt")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("updated_at");
 
                     b.Property<long>("UserId")
@@ -205,6 +305,59 @@ namespace Blog.Infrastructure.Migrations
                     b.ToTable("post", "blog");
                 });
 
+            modelBuilder.Entity("Blog.Core.Entities.PostFile", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("delete_at");
+
+                    b.Property<string>("FileExtension")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("file_extension");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("file_name");
+
+                    b.Property<Guid>("Id2")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_deleted");
+
+                    b.Property<long>("OwnerId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("owner_id");
+
+                    b.Property<DateTime>("UpdateAt")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("updated_at");
+
+                    b.Property<DateTime>("UploadedAt")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("uploaded_at");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OwnerId");
+
+                    b.ToTable("post_file", "blog");
+                });
+
             modelBuilder.Entity("Blog.Core.Entities.RefreshToken", b =>
                 {
                     b.Property<long>("Id")
@@ -215,19 +368,15 @@ namespace Blog.Infrastructure.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<DateTime>("CreateAt")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("created_at");
 
                     b.Property<DateTime>("Expires")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("expires");
 
-                    b.Property<bool>("IsExpired")
-                        .HasColumnType("boolean")
-                        .HasColumnName("is_expired");
-
                     b.Property<DateTime?>("Revoked")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("revoked");
 
                     b.Property<string>("Token")
@@ -236,7 +385,7 @@ namespace Blog.Infrastructure.Migrations
                         .HasColumnName("token");
 
                     b.Property<DateTime>("UpdateAt")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("updated_at");
 
                     b.Property<long>("UserId")
@@ -264,7 +413,7 @@ namespace Blog.Infrastructure.Migrations
                         .HasColumnName("birth_date");
 
                     b.Property<DateTime>("CreateAt")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("created_at");
 
                     b.Property<string>("Email")
@@ -297,7 +446,7 @@ namespace Blog.Infrastructure.Migrations
                         .HasColumnName("phone_number");
 
                     b.Property<DateTime>("UpdateAt")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("updated_at");
 
                     b.HasKey("Id");
@@ -314,6 +463,17 @@ namespace Blog.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Blog.Core.Entities.CertificateFile", b =>
+                {
+                    b.HasOne("Blog.Core.Entities.Certificate", "Certificate")
+                        .WithMany("CertificateFiles")
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Certificate");
                 });
 
             modelBuilder.Entity("Blog.Core.Entities.FileCv", b =>
@@ -338,6 +498,17 @@ namespace Blog.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Blog.Core.Entities.PetProjectFile", b =>
+                {
+                    b.HasOne("Blog.Core.Entities.PetProject", "PetProject")
+                        .WithMany("PetProjectFiles")
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("PetProject");
+                });
+
             modelBuilder.Entity("Blog.Core.Entities.Post", b =>
                 {
                     b.HasOne("Blog.Core.Entities.User", "User")
@@ -349,6 +520,17 @@ namespace Blog.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Blog.Core.Entities.PostFile", b =>
+                {
+                    b.HasOne("Blog.Core.Entities.Post", "Post")
+                        .WithMany("PostFiles")
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Post");
+                });
+
             modelBuilder.Entity("Blog.Core.Entities.RefreshToken", b =>
                 {
                     b.HasOne("Blog.Core.Entities.User", "User")
@@ -358,6 +540,21 @@ namespace Blog.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Blog.Core.Entities.Certificate", b =>
+                {
+                    b.Navigation("CertificateFiles");
+                });
+
+            modelBuilder.Entity("Blog.Core.Entities.PetProject", b =>
+                {
+                    b.Navigation("PetProjectFiles");
+                });
+
+            modelBuilder.Entity("Blog.Core.Entities.Post", b =>
+                {
+                    b.Navigation("PostFiles");
                 });
 
             modelBuilder.Entity("Blog.Core.Entities.User", b =>

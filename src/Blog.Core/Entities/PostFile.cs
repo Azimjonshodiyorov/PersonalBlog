@@ -1,8 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Blog.Core.Common;
 
 namespace Blog.Core.Entities;
-[Table("blog",Schema ="post_file")]
-public class PostFile
+[Table("post_file",Schema ="blog")]
+public class PostFile : BaseEntity , IFileMetadata
 {
     [Column("owner_id")]
     public long OwnerId { get; set; }
@@ -14,10 +16,6 @@ public class PostFile
     public string FileExtension { get; set; } // Fayl kengaytmasi (masalan, .jpg, .pdf)
     [Column("is_deleted")]
     public bool IsDeleted { get; set; } // Fayl o'chirilganmi yoki yo'qmi
-    [Column("uploaded_at")]
-    public DateTime UploadedAt { get; set; } // Fayl yuklangan vaqti
-    [Column("delete_at")]
-    public DateTime? DeletedAt { get; set; } // Fayl o'chirilgan vaqti
     [NotMapped]
     public Post Post { get; set; }
 }

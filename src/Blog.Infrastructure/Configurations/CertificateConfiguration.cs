@@ -9,6 +9,7 @@ public class CertificateConfiguration : IEntityTypeConfiguration<Certificate>
 {
     public void Configure(EntityTypeBuilder<Certificate> builder)
     {
+        //builder.ToTable("certificates", "certificate_file");
         builder
             .HasMany(x => x.CertificateFiles)
             .WithOne(x => x.Certificate)

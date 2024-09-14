@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using Blog.Core.Common;
 
 namespace Blog.Core.Entities;
 [Table("certificate" , Schema = "blog")]
@@ -18,8 +19,5 @@ public class Certificate : BaseEntity
     public User User { get; set; }
     [NotMapped]
     public ICollection<CertificateFile>  CertificateFiles { get; set; }
-    public Certificate()
-    {
-            CertificateFiles = new List<CertificateFile>();
-    }
+
 }

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using Blog.Core.Common;
 
 namespace Blog.Core.Entities;
 [Table("pet_project" , Schema ="blog")]
@@ -26,9 +27,5 @@ public class PetProject : BaseEntity
     public User User { get; set; }
     [NotMapped]
     public ICollection<PetProjectFile>  PetProjectFiles { get; set; }
-    public PetProject()
-    {
-        Skills = new List<string>();
-        PetProjectFiles = new List<PetProjectFile>();
-    }
+
 }
