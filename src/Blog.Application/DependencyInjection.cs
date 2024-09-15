@@ -16,6 +16,7 @@ using Blog.Application.Services.TokenServices.Interfaces;
 using Blog.Application.Services.UserServices;
 using Blog.Application.Services.UserServices.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -59,7 +60,20 @@ public static class DependencyInjection
         services.AddScoped<IFileCvService, FileCvService>();
         services.AddScoped<IPetProjectService, PetProjectService>();
         services.AddScoped<ITokenService, TokenService>();
+        services.AddCors(options =>
+        {
+            options.AddPolicy("AllowAllOrigins", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            });
+        });
 
+        services.Configure<FormOptions>(options =>
+        {
+            options.MultipartBodyLengthLimit = 1073741824; // Bu 1 GB ga teng (siz kerakli hajmni qo'yishingiz mumkin)
+        });
         // Register AutoMapper
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
