@@ -2,9 +2,9 @@
 
 services:
   webapi:
-    image: your-dockerhub-username/your-project:latest
+    image: azimjon2000/blog:latest
     build:
-      context: .
+      context: ./Blog.WebAPI
       dockerfile: Dockerfile
     ports:
       - "5000:80"
@@ -12,16 +12,16 @@ services:
       - db
       - minio
     environment:
-      - ASPNETCORE_ENVIRONMENT=Production
-      - ConnectionStrings:DefaultConnection=Host=db;Database=Blog;Username=postgres;Password=azimjon2000;Port=5432
-      - JwtSettings:Key=JWTRefreshTokenHIGHsecuredPasswordVVVp1OH7Xzyr
-      - JwtSettings:Issuer=http://localhost:5000
-      - JwtSettings:Audience=http://localhost:4200
-      - JwtSettings:LifetimeInMinutes=120
-      - JwtSettings:RefreshLifetimeInDays=7
-      - MinioSettings:Endpoint=minio:9000
-      - MinioSettings:AccessKey=your-access-key
-      - MinioSettings:SecretKey=your-secret-key
+      ASPNETCORE_ENVIRONMENT: Production
+      ConnectionStrings__DefaultConnection: Host=db;Database=Blog;Username=postgres;Password=azimjon2000;Port=5432
+      JwtSettings__Key: JWTRefreshTokenHIGHsecuredPasswordVVVp1OH7Xzyr
+      JwtSettings__Issuer: http://localhost:5000
+      JwtSettings__Audience: http://localhost:4200
+      JwtSettings__LifetimeInMinutes: 120
+      JwtSettings__RefreshLifetimeInDays: 7
+      MinioSettings__Endpoint: minio:9000
+      MinioSettings__AccessKey: your-access-key
+      MinioSettings__SecretKey: your-secret-key
 
   db:
     image: postgres:latest
