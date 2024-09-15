@@ -46,6 +46,7 @@ public class PostController : ControllerBase
     [HttpPost("download")]
     public async Task<IActionResult> DownloadFile(string backetName, Guid id2)
     {
+
         return Ok(await _postService.DownloadFile(backetName, id2));
 
     }

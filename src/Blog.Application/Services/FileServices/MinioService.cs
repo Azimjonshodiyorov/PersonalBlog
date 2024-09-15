@@ -45,7 +45,7 @@ public class MinioService<T> : IMinioService<T> where T : class ,IFileMetadata
 
             var fileMetadata = Activator.CreateInstance<T>();
             fileMetadata.Id2 = id2;
-            fileMetadata.FileName = file.FileName;
+            fileMetadata.FileName = Path.GetFileNameWithoutExtension(file.FileName);
             fileMetadata.FileExtension = Path.GetExtension(file.FileName);
             fileMetadata.IsDeleted = false;
             fileMetadata.OwnerId = ownerId;

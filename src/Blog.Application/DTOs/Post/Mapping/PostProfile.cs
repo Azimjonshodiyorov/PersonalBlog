@@ -10,6 +10,7 @@ public class PostProfile : Profile
         CreateMap<Core.Entities.Post, PostDto>().ReverseMap();
         CreateMap<PostFile, PostFileDto>().ReverseMap();
         CreateMap<Core.Entities.Post, CreatePostDto>().ReverseMap();
+        CreateMap<PostDto, CreatePostDto>().ReverseMap();
         CreateMap<Core.Entities.Post, UpdatePostDto>().ReverseMap();
     }
 }

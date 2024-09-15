@@ -6,6 +6,7 @@ using Blog.Core.Common;
 using Blog.Core.Entities;
 using Blog.Infrastructure.Repositories.Interfaces;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace Blog.Application.Services.PostServices;
 
@@ -74,7 +75,10 @@ public class PostService : IPostService
 
     public async Task<PostDto> GetByIdAsync(long id)
     {
-        var post = _unitOfWork.Posts.GetByIdAsync(id);
+        var post = await _unitOfWork.Posts
+                                        .Entities
+                                        .Include(p => p.PostFiles) // PostFile larni birga olib kelish
+                                        .FirstOrDefaultAsync(p => p.Id == id);
         if (post is null)
             throw new Exception($"Post not found ");
         var postMap = _mapper.Map<PostDto>(post);
@@ -83,7 +87,9 @@ public class PostService : IPostService
 
     public async Task<PagedResult<PostDto>> GetListAsync(int pageNumber , int pageSize)
     {
-        var query = _unitOfWork.Posts.Entities.AsQueryable();
+        var query = _unitOfWork.Posts.Entities
+            .AsQueryable()
+            .Include(x=>x.PostFiles);
 
         var pagedPosts = PagedResult<Post>.Paginate(query, pageNumber, pageSize);
 
