@@ -13,4 +13,6 @@ public interface IPostService
     Task<byte[]> DownloadFile(string backetName, Guid id2);
     Task<PostDto> GetByIdAsync(long id);
     Task<PagedResult<PostDto>> GetListAsync(int pageNumber , int pageSize);
+
+    Task<PostDto> DeleteByIdAsync(long id);
 }

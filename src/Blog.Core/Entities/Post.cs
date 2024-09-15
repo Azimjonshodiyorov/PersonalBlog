@@ -11,6 +11,8 @@ public class Post : BaseEntity
 
     [Column("description")]
     public string Description { get; set; }
+    [Column("is_delete")]
+    public bool IsDelete { get; set; }
 
     [Column("user_id")]
     public long UserId { get; set; }

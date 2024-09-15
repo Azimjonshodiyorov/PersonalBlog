@@ -36,6 +36,18 @@ public class PostController : ControllerBase
         return Ok( await this._postService.CreateAsync(dto));
     }
 
+    [HttpPut("update")]
+    public async Task<IActionResult> UpdateAsync(UpdatePostDto dto)
+    {
+        return Ok(await this._postService.UpdateAsync(dto));
+    }
+
+    [HttpPut("delete")]
+    public async Task<IActionResult> Delete(long  id)
+    {
+        return Ok(await this._postService.DeleteByIdAsync(id));
+    }
+
     [HttpPost("uploadFile")]
     public async Task<IActionResult> UploadFile(IFormFile file)
     {

@@ -103,4 +103,16 @@ public class PostService : IPostService
         );
 
     }
+
+    public async Task<PostDto> DeleteByIdAsync(long id)
+    {
+        var post = await _unitOfWork.Posts.
+            Entities.
+            Where(x => x.Id == id && !x.IsDelete).FirstOrDefaultAsync(); ;
+        if (post is null) throw new Exception($"{id} li post topilmadi");
+        post.IsDelete = true;
+         await _unitOfWork.SaveChangesAsync();
+        var postMap = _mapper.Map<PostDto>(post);
+        return postMap;
+    }
 }
