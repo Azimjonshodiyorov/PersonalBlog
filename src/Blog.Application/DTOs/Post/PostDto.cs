@@ -5,8 +5,8 @@ namespace Blog.Application.DTOs.Post;
 public class PostDto
 {
     public string Title { get; set; }
-
     public string Description { get; set; }
+    public bool IsDelete { get; set; }
 
     public long UserId { get; set; }
 
