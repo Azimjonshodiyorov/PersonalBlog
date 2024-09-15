@@ -74,6 +74,7 @@ public class MinioService<T> : IMinioService<T> where T : class ,IFileMetadata
                 .WithBucket(bucketName)
                 .WithObject(fileName)
                 .WithCallbackStream(stream => stream.CopyTo(memoryStream)));
+            memoryStream.Position = 0;
             return memoryStream.ToArray();
         }
         catch (Exception ex)
