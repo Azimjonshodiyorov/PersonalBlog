@@ -4,7 +4,7 @@ services:
   webapi:
     image: azimjon2000/blog:latest
     build:
-      context: ./Blog.WebAPI
+      context: ./src/Blog.WebAPI
       dockerfile: Dockerfile
     ports:
       - "5000:80"
