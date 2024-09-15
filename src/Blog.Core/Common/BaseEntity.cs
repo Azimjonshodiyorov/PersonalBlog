@@ -13,5 +13,5 @@ public class BaseEntity
     public DateTime CreateAt { get; set; } = DateTime.Now;
 
     [Column("updated_at")]
-    public DateTime UpdateAt { get; set; } 
+    public DateTime? UpdateAt { get; set; } 
 }

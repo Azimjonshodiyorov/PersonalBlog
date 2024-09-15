@@ -42,7 +42,7 @@ public class PostController : ControllerBase
         return Ok(await this._postService.UpdateAsync(dto));
     }
 
-    [HttpPut("delete")]
+    [HttpDelete("delete")]
     public async Task<IActionResult> Delete(long  id)
     {
         return Ok(await this._postService.DeleteByIdAsync(id));
