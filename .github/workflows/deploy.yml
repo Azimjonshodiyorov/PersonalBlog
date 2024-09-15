@@ -36,7 +36,7 @@ jobs:
         context: ./Blog.WebAPI
         file: ./Blog.WebAPI/Dockerfile
         push: true
-        tags: your-dockerhub-username/your-project:latest
+        tags: azimjon2000/blog:latest
 
     - name: Deploy with Docker Compose
       run: |
