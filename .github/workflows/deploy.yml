@@ -36,7 +36,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         context: ./src/Blog.WebAPI
-        file: ./src/Blog.WebAPI/Dockerfile
+        file: ./src/Blog.WebAPI/Dockerfile ./src
         push: true
         tags: azimjon2000/blog:latest
 
