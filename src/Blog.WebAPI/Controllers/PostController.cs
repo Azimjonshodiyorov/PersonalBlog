@@ -56,9 +56,9 @@ public class PostController : ControllerBase
     }
 
     [HttpPost("uploadFile")]
-    public async Task<IActionResult> UploadFile(IFormFile file)
+    public async Task<IActionResult> UploadFile(IFormFile file , long id)
     {
-        return Ok(await _postService.UploadFile(file , 1));
+        return Ok(await _postService.UploadFile(file , id));
 
     }
 

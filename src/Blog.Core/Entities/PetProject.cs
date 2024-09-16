@@ -11,8 +11,8 @@ public class PetProject : BaseEntity
     [Column("description")]
     public string Description { get; set; }
 
-    [NotMapped]
-    public List<string> Skills { get; set; }
+    [Column("is_delete")]
+    public bool IsDelete { get; set; }
 
     [Column("github_link")]
     public string GitHubLink { get; set; }

@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Blog.Application.DTOs.PetProject;
 using Blog.Core.Entities;
 
 namespace Blog.Application.DTOs.PetProjects.Mapping;
@@ -11,6 +10,6 @@ public class PetProjectProfile : Profile
         CreateMap<Blog.Core.Entities.PetProject , PetProjectDto>().ReverseMap();
         CreateMap<Blog.Core.Entities.PetProject , CreatePetProjectDto>().ReverseMap();
         CreateMap<Blog.Core.Entities.PetProject , UpdatePetProjectDto>().ReverseMap();
-        CreateMap<Blog.Core.Entities.PetProjectFile , PetProjectFileDto>().ReverseMap();
+        CreateMap<PetProjectFile , PetProjectFileDto>().ReverseMap();
     }
 }
