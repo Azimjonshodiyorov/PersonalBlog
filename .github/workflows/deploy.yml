@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - master
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -40,7 +41,7 @@ jobs:
 
     - name: Deploy with Docker Compose
       run: |
-        docker-compose -f ./Blog.WebAPI/docker-compose.yml up -d
+        docker-compose -f ./src/Blog.WebAPI/docker-compose.yml up -d
       env:
         DOCKER_BUILDKIT: 1
         DOCKER_CLI_EXPERIMENTAL: enabled
