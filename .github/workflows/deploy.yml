@@ -1,5 +1,4 @@
 name: Build and Deploy
-
 on:
   push:
     branches:
@@ -21,7 +20,6 @@ jobs:
       with:
         path: |
           /tmp/.buildx-cache
-          /tmp/.docker-cache
         key: ${{ runner.os }}-build-${{ github.sha }}
         restore-keys: |
           ${{ runner.os }}-build-
@@ -35,14 +33,14 @@ jobs:
     - name: Build and push Docker image
       uses: docker/build-push-action@v3
       with:
-        context: ./src/Blog.WebAPI
-        file: ./src/Blog.WebAPI/Dockerfile ./src
+        context: ./src
+        file: ./src/Blog.WebAPI/Dockerfile
         push: true
-        tags: azimjon2000/blog:latest
+        tags: yourusername/blog:latest
 
     - name: Deploy with Docker Compose
       run: |
-        docker-compose -f src/Blog.WebAPI/docker-compose.yml up -d
+        docker-compose -f ./src/Blog.WebAPI/docker-compose.yml up -d
       env:
         DOCKER_BUILDKIT: 1
         DOCKER_CLI_EXPERIMENTAL: enabled
