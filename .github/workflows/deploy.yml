@@ -33,7 +33,6 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
         with:
-        with:
           context: ./src
           file: ./src/Blog.WebAPI/Dockerfile
           push: true
