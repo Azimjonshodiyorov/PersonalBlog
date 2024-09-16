@@ -3,6 +3,7 @@ namespace Blog.Application.DTOs.PetProjects;
 
 public class PetProjectDto
 {
+    public long Id { get; set; }
     public string ProjectName { get; set; }
     public string Description { get; set; }
     public string GitHubLink { get; set; }

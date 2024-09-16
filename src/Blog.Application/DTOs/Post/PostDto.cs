@@ -9,6 +9,6 @@ public class PostDto
     public bool IsDelete { get; set; }
     public DateTime CreateAt { get; set; }
     public long UserId { get; set; }
-
+    public long Id { get; set; }
     public List<PostFileDto> PostFiles { get; set; }
 }
