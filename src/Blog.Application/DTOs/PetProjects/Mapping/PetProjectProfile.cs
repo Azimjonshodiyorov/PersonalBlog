@@ -7,9 +7,10 @@ public class PetProjectProfile : Profile
 {
     public PetProjectProfile()
     {
-        CreateMap<Blog.Core.Entities.PetProject , PetProjectDto>().ReverseMap();
-        CreateMap<Blog.Core.Entities.PetProject , CreatePetProjectDto>().ReverseMap();
-        CreateMap<Blog.Core.Entities.PetProject , UpdatePetProjectDto>().ReverseMap();
+        CreateMap<PetProject , PetProjectDto>().ReverseMap();
+        CreateMap<PetProject , CreatePetProjectDto>().ReverseMap();
+        CreateMap<PetProject , CreatePetProjectDto>().ReverseMap();
+        CreateMap<PetProject , UpdatePetProjectDto>().ReverseMap();
         CreateMap<PetProjectFile , PetProjectFileDto>().ReverseMap();
     }
 }

@@ -10,5 +10,5 @@ public class PetProjectDto
     public bool IsDelete { get; set; }
     public DateTime CreateAt { get; set; }
     public long UserId { get; set; }
-    public List<PetProjectDto> ProjectDtos { get; set; }
+    public List<PetProjectFileDto> PetProjectFiles { get; set; }
 }

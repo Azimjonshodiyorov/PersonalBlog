@@ -29,7 +29,7 @@ public class PetProjectService : IPetProjectService
             var petPro = _mapper.Map<PetProject>(dto);
             await _unitOfWork.PetProjects.AddAsync(petPro);
             await _unitOfWork.SaveChangesAsync();
-            var result = _mapper.Map<PetProjectDto>(dto);
+            var result = _mapper.Map<PetProjectDto>(petPro);
             return result;
         }
         catch (Exception e)
@@ -98,6 +98,10 @@ public class PetProjectService : IPetProjectService
     {
         try
         {
+            var owner = await _unitOfWork.Context.Set<PetProject>()
+                .FirstOrDefaultAsync(x=>x.Id == ownerId);
+            if (owner is null)
+                return $"{ownerId} Bunday id PetProject yuq";
             await _minioService.UploadFileAsync(file, DocumentStorageConst.Pet_Project_File, Guid.NewGuid(), ownerId );
             return file.FileName;
         }
