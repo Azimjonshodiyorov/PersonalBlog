@@ -39,7 +39,7 @@ namespace Blog.WebAPI.Controllers
         }
 
         [HttpPost("add")]
-        public async Task<IActionResult> CreatePostAsync(CreatePetProjectDto dto)
+        public async Task<IActionResult> CreateAsync(CreatePetProjectDto dto)
         {
             return Ok( await this._projectService.CreateAsync(dto));
         }
