@@ -6,7 +6,7 @@ namespace Blog.Application.Services.CertificateServices.Interfaces;
 
 public interface ICertificateService
 {
-    Task<PagedResult<CertificateDto>> GetListAsync(int pageNumber , int pageSize);
+    Task<PagedResult<CertificateDto>> GetListAsync(int pageNumber, int pageSize);
     Task<CertificateDto> GetByIdAsync(long id);
     Task<CertificateDto> CreateAsync(CreateCertificateDto dto);
     Task<CertificateDto> UpdateAsync(UpdateCertificateDto dto);
