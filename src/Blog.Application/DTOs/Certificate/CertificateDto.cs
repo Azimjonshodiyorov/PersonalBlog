@@ -7,4 +7,5 @@ public class CertificateDto
     public DateTime CreateAt { get; set; }
     public long UserId { get; set; }
     public long Id { get; set; }
+    public List<CertificateFileDto>  CertificateFiles { get; set; }
 }
