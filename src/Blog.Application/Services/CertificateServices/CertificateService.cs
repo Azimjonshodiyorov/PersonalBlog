@@ -6,6 +6,7 @@ using Blog.Core.Common;
 using Blog.Core.Entities;
 using Blog.Infrastructure.Repositories.Interfaces;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace Blog.Application.Services.CertificateServices;
 
@@ -23,36 +24,97 @@ public class CertificateService : ICertificateService
     }
     public async Task<PagedResult<CertificateDto>> GetListAsync(int pageNumber, int pageSize)
     {
-        throw new NotImplementedException();
+        var query =  _unitOfWork.Certificates.Entities
+            .Include(x => x.CertificateFiles);
+        var pegedCertifcate = PagedResult<Certificate>.Paginate(query, pageNumber, pageSize);
+        var certifcateMap = _mapper.Map<List<CertificateDto>>(pegedCertifcate.Items);
+        return new PagedResult<CertificateDto>(
+            certifcateMap,
+            pegedCertifcate.TotalRecords,
+            pegedCertifcate.PageNumber,
+            pegedCertifcate.PageSize);
     }
 
     public async Task<CertificateDto> GetByIdAsync(long id)
     {
-        throw new NotImplementedException();
+        var certifcate = await _unitOfWork.Certificates.Entities
+            .Include(x => x.CertificateFiles)
+            .FirstOrDefaultAsync(x => x.Id == id);
+        if (certifcate is null)
+            throw new Exception($" {id} Certificate topilmadi ");
+        var certificateMap = _mapper.Map<CertificateDto>(certifcate);
+        return certificateMap;
     }
 
     public async Task<CertificateDto> CreateAsync(CreateCertificateDto dto)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var certificate = _mapper.Map<Certificate>(dto);
+            await _unitOfWork.Certificates.AddAsync(certificate);
+            await _unitOfWork.SaveChangesAsync();
+            var certificateMap = _mapper.Map<CertificateDto>(certificate);
+            return certificateMap;
+        }
+        catch (Exception e)
+        {
+            throw new Exception($"Certificate yaratishda hatolik  {e.InnerException} {e.StackTrace}");
+        }
     }
 
     public async Task<CertificateDto> UpdateAsync(UpdateCertificateDto dto)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var certificate = _mapper.Map<Certificate>(dto);
+            await _unitOfWork.Certificates.UpdateAsync(certificate);
+            await _unitOfWork.SaveChangesAsync();
+            var certificateMap = _mapper.Map<CertificateDto>(certificate);
+            return certificateMap;
+        }
+        catch (Exception e)
+        {
+            throw new Exception($"Certificate Yanagilashda hatolik  {e.InnerException} {e.StackTrace}");
+        }
     }
 
     public async Task<CertificateDto> Delete(long id)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var certificate = await _unitOfWork.Certificates.GetByIdAsync(id);
+            if (certificate == null)
+                throw new Exception();
+            await _unitOfWork.Certificates.DeleteAsync(certificate);
+            await _unitOfWork.SaveChangesAsync();
+            var certificateMap = _mapper.Map<CertificateDto>(certificate);
+            return certificateMap;
+        }
+        catch (Exception e)
+        {
+            throw new Exception($"Certificate o'chrishda hatolik  {e.InnerException} {e.StackTrace}");
+        }
     }
 
     public async Task<byte[]> Download(string backetName, Guid id2)
     {
-        throw new NotImplementedException();
+        return await _minioService.GetFileByIdAsync(backetName, id2);
     }
 
     public async Task<string> UploadFile(IFormFile file, long ownerId)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var owner = await _unitOfWork.Context.Set<Certificate>()
+                .FirstOrDefaultAsync(x=>x.Id == ownerId);
+            if (owner is null)
+                return $"{ownerId} Bunday id Certificate yuq";
+            await _minioService.UploadFileAsync(file, DocumentStorageConst.Certificate_File, Guid.NewGuid(), ownerId );
+            return file.FileName;
+        }
+        catch (Exception e)
+        {
+            throw new Exception($"{e.InnerException} {e.StackTrace} ");
+        }
     }
 }
