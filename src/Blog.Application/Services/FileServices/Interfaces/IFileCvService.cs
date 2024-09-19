@@ -8,9 +8,9 @@ namespace Blog.Application.Services.FileServices.Interfaces;
 public interface IFileCvService
 {
     Task<PagedResult<FileCvDto>> GetAllCvAsync(int pageNumber, int pageSize);
-    Task<FileCvDto> GetByIdFileAsync(string bucktName, Guid id2);
+    Task<FileCvDto> GetByIdFileAsync(long id);
     Task<string> UploadFile(IFormFile file, long ownerId);
-    Task<byte[]> DownloadFile(string bucktName, long ownerId);
+    Task<byte[]> DownloadFile(string bucktName, Guid id2);
     Task<FileCvDto> UpdateCv(UpdateFileCvDto dto);
     Task<FileCvDto> Delete(long id);
 }
