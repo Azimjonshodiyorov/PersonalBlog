@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using System.Text;
 using Blog.Application.DTOs.File;
+using Blog.Application.DTOs.Files;
 using Blog.Application.Services.AuthServices;
 using Blog.Application.Services.AuthServices.Interfaces;
 using Blog.Application.Services.CertificateServices;

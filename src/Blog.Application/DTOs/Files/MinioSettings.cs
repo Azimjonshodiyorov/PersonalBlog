@@ -1,4 +1,4 @@
-﻿namespace Blog.Application.DTOs.File;
+﻿namespace Blog.Application.DTOs.Files;
 
 public class MinioSettings
 {
