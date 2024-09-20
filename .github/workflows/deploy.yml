@@ -38,7 +38,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
         with:
-          context: ./src  # Kontekstni ko'rsatish
+          context: ./src/Blog.WebAPI  # To'g'ri kontekstni ko'rsatish
           file: ./src/Blog.WebAPI/Dockerfile
           push: true
           tags: azimjon2000/blog:latest
