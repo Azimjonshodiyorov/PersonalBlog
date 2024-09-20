@@ -1,13 +1,13 @@
-﻿version: '3.4'
+﻿version: '3.8'
 
 services:
   webapi:
     image: azimjon2000/blog:latest
     build:
-      context: ./src/Blog.WebAPI
-      dockerfile: Dockerfile
+      context: ../..  # Harakatning yuqori papkasiga qaytish
+      dockerfile: src/Blog.WebAPI/Dockerfile  # Dockerfile yo'li
     ports:
-      - "5000:81"
+      - "5000:5000"
     depends_on:
       - db
       - minio

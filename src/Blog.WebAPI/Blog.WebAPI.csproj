@@ -6,8 +6,9 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
         <UserSecretsId>94087da4-2d7c-4d4c-be9e-fe26574b86a5</UserSecretsId>
+        <OutputType>Exe</OutputType> <!-- Bu yerda OutputType: Exe bo'lishi kerak -->
     </PropertyGroup>
-
+    
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.4"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0">
