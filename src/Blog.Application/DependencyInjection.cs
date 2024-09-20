@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using System.Text;
-using Blog.Application.DTOs.File;
 using Blog.Application.DTOs.Files;
 using Blog.Application.Services.AuthServices;
 using Blog.Application.Services.AuthServices.Interfaces;
@@ -20,7 +19,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Minio;
 

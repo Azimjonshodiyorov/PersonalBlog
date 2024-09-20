@@ -65,7 +65,7 @@ public class MinioService<T> : IMinioService<T> where T : class ,IFileMetadata
     {
         try
         {
-            var entity = await _unitOfWork.Context.Set<PetProjectFile>()
+            var entity = await _unitOfWork.Context.Set<T>()
                 .FirstOrDefaultAsync(x=>x.Id2 == id2);
             if (entity == null)
                 throw new Exception("File not found ");
