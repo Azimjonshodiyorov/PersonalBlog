@@ -12,9 +12,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: List files in src/Blog.WebAPI
-        run: |
-          ls -la ./src/Blog.WebAPI
+- name: Check current directory
+  run: pwd
+
+- name: List all directories
+  run: ls -la
+
           
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
