@@ -11,6 +11,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        
+      - name: List files in repository  # Bu qadamni shu yerga qo'shasiz
+        run: |
+          ls -la
+          ls -la ./src
           
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
@@ -29,10 +34,10 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-
+          
       - name: List files in Blog.WebAPI directory
         run: ls -la ./src/Blog.WebAPI
-        
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
         with:
