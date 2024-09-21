@@ -40,8 +40,8 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
         with:
-          context: ./src/Blog.WebAPI  # to'g'ri kontekst
-          file: ./Dockerfile  # bu noto'g'ri, to'g'ri yo'l
+          context: ./src/Blog.WebAPI  # Dockerfile joyi
+          dockerfile: Dockerfile  # Dockerfile nomi
 
           push: true
           tags: azimjon2000/blog:latest
@@ -52,7 +52,7 @@ jobs:
     steps:
       - name: Deploy with Docker Compose
         run: |
-          docker-compose -f ./src/Blog.WebAPI/docker-compose.yml up -d
+            docker-compose -f ./docker-compose.yml up -d
         env:
           DOCKER_BUILDKIT: 1
           DOCKER_CLI_EXPERIMENTAL: enabled
