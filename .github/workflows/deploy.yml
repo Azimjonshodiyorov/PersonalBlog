@@ -13,7 +13,8 @@ jobs:
         uses: actions/checkout@v3
         
       - name: List all files
-        run: ls -la
+        run: ls -la ./src/Blog.WebAPI
+
 
       - name: List files in src
         run: ls -la ./src  # Bu yerda src direktoriyasi mavjudligini tekshiramiz
