@@ -17,9 +17,6 @@ jobs:
 
       - name: List files in src
         run: ls -la ./src  # Bu yerda src direktoriyasi mavjudligini tekshiramiz
-
-      - name: Check context
-        run: ls -la ../src
           
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
