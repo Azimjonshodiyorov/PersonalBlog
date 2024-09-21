@@ -40,8 +40,8 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
         with:
-          context: ./src/Blog.WebAPI  # To'g'ri kontekst
-          file: ./src/Blog.WebAPI/Dockerfile  # Dockerfile ning to'g'ri yo'li
+          context: ../src/Blog.WebAPI  # 'workflows' dan chiqib, 'src' ga kirish
+          file: ../src/Blog.WebAPI/Dockerfile  # 'workflows' dan chiqib, 'src' ga kirish
           push: true
           tags: azimjon2000/blog:latest
 
