@@ -40,9 +40,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
         with:
-          context: ./src/Blog.WebAPI  # Dockerfile joyi
-          dockerfile: Dockerfile  # Dockerfile nomi
-
+          context: ./src/Blog.WebAPI
           push: true
           tags: azimjon2000/blog:latest
 
