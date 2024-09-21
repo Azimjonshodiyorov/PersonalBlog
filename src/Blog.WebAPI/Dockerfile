@@ -18,15 +18,15 @@ COPY ["src/Blog.Core/Blog.Core.csproj", "Blog.Core/"]
 
 # Restore dependencies
 RUN dotnet restore "Blog.WebAPI/Blog.WebAPI.csproj"
+# Set the working directory for building
+WORKDIR "/src/Blog.WebAPI"
 
 # Copy the remaining files
 COPY . .
 
-# Set the working directory for building
-WORKDIR "/src/Blog.WebAPI"
 
 # Build the application
-RUN dotnet build "Blog.WebAPI.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "Blog.WebAPI.csproj" -c Release -o /app/build
 
 # Publish the application
 FROM build AS publish
