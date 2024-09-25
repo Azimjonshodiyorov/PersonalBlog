@@ -42,7 +42,8 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
         with:
-          context: ./src/Blog.WebAPI
+          context: .  # Harakatning yuqori papkasiga qaytish
+          dockerfile: src/Blog.WebAPI/Dockerfile  # Dockerfile yo'li
           push: true
           tags: azimjon2000/blog:latest
 
