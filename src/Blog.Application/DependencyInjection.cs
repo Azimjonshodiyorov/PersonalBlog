@@ -40,11 +40,12 @@ public static class DependencyInjection
         services.AddSingleton<MinioClient>(sp =>
         {
             return (MinioClient)new MinioClient()
-                .WithEndpoint(minioSettings.Endpoint, 9000)
+                .WithEndpoint(minioSettings.Endpoint) // faqat hostname yoki IP
                 .WithCredentials(minioSettings.AccessKey, minioSettings.SecretKey)
-                .WithSSL(false)
+                .WithSSL(false) // HTTPS o'rnatilmagan bo'lsa
                 .Build();
         });
+
 
         // Register JwtSettings and MinioSettings in the DI container
         services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
@@ -73,24 +74,20 @@ public static class DependencyInjection
         {
             options.MultipartBodyLengthLimit = 1073741824; // Bu 1 GB ga teng (siz kerakli hajmni qo'yishingiz mumkin)
         });
-        // Register AutoMapper
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
-        // Configure JWT Authentication
         services.AddAuthentication(options =>
         {
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
             options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
         }).AddJwtBearer(options =>
         {
-            // Validate JwtSettings
-            if (jwtSettings == null || string.IsNullOrWhiteSpace(jwtSettings.Key))
+            if (string.IsNullOrWhiteSpace(jwtSettings.Key))
             {
                 throw new ArgumentNullException("JwtSettings.Key", "JWT Key cannot be null or empty.");
             }
 
-            // Set up Token Validation Parameters
-            options.RequireHttpsMetadata = true; // HTTPS ni talab qiladimi tekshirish
+            options.RequireHttpsMetadata = true; 
             options.SaveToken = true;
             options.TokenValidationParameters = new TokenValidationParameters
             {

@@ -4,8 +4,8 @@ services:
   webapi:
     image: azimjon2000/blog:latest
     build:
-      context: .  # Harakatning yuqori papkasiga qaytish
-      dockerfile: src/Blog.WebAPI/Dockerfile  # Dockerfile yo'li
+      context: .  
+      dockerfile: src/Blog.WebAPI/Dockerfile  
     ports:  
       - "5000:5000"
     depends_on:
@@ -19,7 +19,7 @@ services:
       JwtSettings__Audience: http://localhost:4200
       JwtSettings__LifetimeInMinutes: 120
       JwtSettings__RefreshLifetimeInDays: 7
-      MinioSettings__Endpoint: minio:9000
+      MinioSettings__Endpoint: minio
       MinioSettings__AccessKey: your-access-key
       MinioSettings__SecretKey: your-secret-key
 
@@ -40,3 +40,4 @@ services:
     ports:
       - "9000:9000"
     command: server /data
+  

@@ -1,6 +1,8 @@
 using System.Text.Json;
 using Blog.Application;
 using Blog.Infrastructure;
+using Blog.Infrastructure.AppDbContext;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 namespace Blog.WebAPI;
@@ -10,7 +12,7 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
-
+        //builder.WebHost.UseUrls("http://*:5000");
         builder.Services.AddInfrastructure(builder.Configuration);
         builder.Services.AddApplication(builder.Configuration);
         builder.Services.AddEndpointsApiExplorer();
@@ -51,7 +53,7 @@ public class Program
         
         var app = builder.Build();
 
-        if (app.Environment.IsDevelopment())
+        if ( app.Environment.IsDevelopment() || app.Environment.IsProduction())
         {
             app.UseDeveloperExceptionPage();
             app.UseSwagger();
@@ -61,6 +63,12 @@ public class Program
             });
         }
 
+        using (var scope = app.Services.CreateScope())
+        {
+            var dbContext = scope.ServiceProvider.GetRequiredService<BlogDbContext>();
+            dbContext.Database.Migrate(); // Apply migrations
+        }
+        
         app.UseStaticFiles();
         app.UseCors("AllowAllOrigins");
         app.UseRouting();
