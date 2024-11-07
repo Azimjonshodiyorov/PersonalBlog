@@ -2,6 +2,7 @@
 using Blog.Core.Entities;
 using Blog.Infrastructure.AppDbContext;
 using Blog.Infrastructure.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Blog.Infrastructure.Repositories;
 
@@ -45,6 +46,25 @@ public class UnitOfWork : IUnitOfWork
     public int Save()
     {
         return _context.SaveChanges();
+    }
+
+    public IDbContextTransaction CurrentTransaction { get; set; }
+    public IDbContextTransaction BeginTransaction()
+    {
+        return Context.Database.BeginTransaction();
+    }
+
+    public void Commit()
+    {
+        Save();
+        if (Context.Database.CurrentTransaction != null)
+            Context.Database.CurrentTransaction.Commit();
+    }
+
+    public void Rollback()
+    {
+        if (Context.Database.CurrentTransaction != null)
+            Context.Database.CurrentTransaction.Rollback();
     }
 
     public void Dispose()

@@ -1,5 +1,6 @@
 ﻿using Blog.Core.Common;
 using Blog.Infrastructure.AppDbContext;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Blog.Infrastructure.Repositories.Interfaces;
 
@@ -16,4 +17,9 @@ public interface IUnitOfWork : IDisposable
 
     Task<int> SaveChangesAsync();
     int Save();
+    
+    IDbContextTransaction CurrentTransaction { get; }
+    IDbContextTransaction BeginTransaction();
+    void Commit();
+    void Rollback();
 }
