@@ -41,8 +41,15 @@ jobs:
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
+
+      - name: List all files
+        run: ls -laR  # Barcha fayllarni rekurisv ro'yxatga olish
+
+      - name: Find Dockerfile
+        run: find . -name Dockerfile  # Dockerfile joylashgan joyini qidirish
+
         with:
-          context: src/Blog.WebAPI
+          context: .
           dockerfile: src/Blog.WebAPI/Dockerfile 
           push: true
           tags: azimjon2000/blog:latest
