@@ -50,8 +50,8 @@ jobs:
         uses: docker/build-push-action@v6
 
         with:
-          context: ./src 
-          file: Blog.WebAPI/Dockerfile 
+          context: ./ 
+          file: src/Blog.WebAPI/Dockerfile
           push: true
           tags: azimjon2000/blog:latest
 
