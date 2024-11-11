@@ -19,7 +19,7 @@ jobs:
         run: find . -name deploy.yaml  # Joriy papkadan boshlab `deploy.yaml` faylini qidirish
 
       - name: List files in src
-        run: ls -la ./src  # Bu yerda src direktoriyasi mavjudligini tekshiramiz
+        run: ls -la ../../    # Bu yerda src direktoriyasi mavjudligini tekshiramiz
           
       - name: List all files
         run: ls -laR 
@@ -51,7 +51,7 @@ jobs:
 
         with:
           context: ../../  
-          file: src/Blog.WebAPI/Dockerfile  
+          file: ./src/Blog.WebAPI/Dockerfile  
           push: true
           tags: azimjon2000/blog:latest
 
