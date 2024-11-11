@@ -43,7 +43,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: . 
-          dockerfile: ./src/Blog.WebAPI/Dockerfile 
+          dockerfile: /src/Blog.WebAPI/Dockerfile 
           push: true
           tags: azimjon2000/blog:latest
 
