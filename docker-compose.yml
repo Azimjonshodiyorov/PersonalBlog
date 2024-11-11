@@ -39,5 +39,6 @@ services:
       MINIO_ROOT_PASSWORD: your-secret-key
     ports:
       - "9000:9000"
+      - "9001:9001"
     command: server /data
   
