@@ -22,10 +22,10 @@ jobs:
         run: ls -la ./src  # Bu yerda src direktoriyasi mavjudligini tekshiramiz
           
       - name: List all files
-        run: ls -laR  # Barcha fayllarni rekurisv ro'yxatga olish
+        run: ls -laR 
 
       - name: Find Dockerfile
-        run: find . -name Dockerfile  # Dockerfile joylashgan joyini qidirish
+        run: find . -name Dockerfile 
 
         
       - name: Set up Docker Buildx
