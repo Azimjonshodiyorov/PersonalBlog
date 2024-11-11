@@ -47,11 +47,11 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v6
 
         with:
-          #context: .
-          dockerfile: src/Blog.WebAPI/Dockerfile 
+          context: .
+          #dockerfile: src/Blog.WebAPI/Dockerfile 
           push: true
           tags: azimjon2000/blog:latest
 
