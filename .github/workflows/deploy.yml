@@ -16,10 +16,10 @@ jobs:
         run: ls -la 
 
       - name: Find deploy.yaml
-        run: find . -name deploy.yaml  # Joriy papkadan boshlab `deploy.yaml` faylini qidirish
+        run: find . -name deploy.yaml   
 
       - name: List files in src
-        run: ls -la ../../    # Bu yerda src direktoriyasi mavjudligini tekshiramiz
+        run: ls -la ../../    
           
       - name: List all files
         run: ls -laR 
